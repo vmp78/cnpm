@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 //const slug = require('mongoose-slug-generator');
-const slug = require('mongoose-slug-plugin');
+// const slug = require('mongoose-slug-plugin');
 
 const Schema = mongoose.Schema;
 
-const Auth = new Schema({
-    username: { type: String, required: true , unique: true },
-    pass: { type: String, required: true },
-    householer: { type: String, require: true },
-    houseId: { type: String, require: true },
-    phoneNumber : { type: String },
-    email: { type: String },
+const Accom = new Schema({
+    houseId: { type: String, required: true , unique: true },
+    area: { type: Number, required: true },
+    parkingLot: { type: String, default: 'none', required: true },
 });
 
-module.exports = mongoose.model('ClientInfo', Auth);
+module.exports = mongoose.model('Acommodation', Accom);
