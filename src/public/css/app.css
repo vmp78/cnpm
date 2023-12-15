@@ -1,0 +1,47 @@
+.card-properties-item {
+  margin-top: 16px; }
+
+.select-menu {
+  width: 160px;
+  margin: 0 8px; }
+
+body, html {
+  height: 100vh;
+  background: url("https://img.freepik.com/free-vector/paper-style-wavy-background_23-2149113704.jpg?w=1380&t=st=1702090088~exp=1702090688~hmac=093651ea5287498afce2cbdd968f70fcbb10432376e7abd0f398dba0a43554ea") center/cover no-repeat;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-color: white;
+  margin: 0;
+  padding: 0; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; }
+
+.main {
+  flex-grow: 1; }
+
+.footer {
+  color: blue; }
+
+.auth-form {
+  display: flex;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(133, 125, 136, 0.57);
+  box-shadow: 0 0 5px rgba(17, 30, 41, 0.5);
+  flex-direction: column; }
+
+.social-icons i {
+  font-size: 24px; }
+
+.auth-form input {
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none; }

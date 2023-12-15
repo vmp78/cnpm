@@ -1,0 +1,39 @@
+<div class="container">
+    <center>
+        <form class="auth-form" action="/me/login" method="post"">
+            <h1>Đăng Nhập</h1>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/" title="Youtube"><i class="bi bi-facebook"></i></i></a>
+                <a href="https://www.threads.com/" title="Threads"><i class="bi bi-youtube"></i></a>
+                <a href="https://www.facebook.com/" title="Facebook"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.instagram.net/" title="Instagram"><i class="bi bi-threads"></i></a>
+            </div>
+            <input name="username" type="text" placeholder="Tài Khoản">
+            <input name="pass" type="text" placeholder="Mật khẩu">
+            <button type="submit" class="btn btn-primary" id="login-button">Đăng nhập</button>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#forgot-pass">Quên mật khẩu?</a>
+        </form>
+    </center>
+</div>
+
+{{!-- quên mật khẩu --}}
+<div class="modal fade" id="forgot-pass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bạn đã quên mật khẩu?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Quên mật khẩu thì hỏi lại quản lý nhé!!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>

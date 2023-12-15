@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">TRANG CHỦ</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <li class="navbar-nav">
+                <a class="nav-link active usercases" aria-current="page" href="/me/login">Tính năng 1</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link active usercases" aria-current="page" href="#">Tính năng 2</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link active usercases" aria-current="page" href="#">Tính năng 3</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link active usercases" aria-current="page" href="#">Tính năng 4</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link" href="#">Link đi đâu đó</a>
+            </li>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <li class="navbar-nav dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="me/">Thê<main></main> nhân khẩu</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item login-is-here" id="{{username}}<" href="me/login">Đăng nhập</a></li>
+                    <li><a class="dropdown-item logout-is-here" href="#" data-bs-toggle="modal" data-bs-target="#logout">Đăng xuất</a></li>
+                </ul>
+            </li>
+        </div>
+    </div>
+</nav>
+
+{{!-- confirm logout --}}
+<div class="modal fade" id="logout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đăng Xuất?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có muốn đăng xuất?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-confirm-logout" type="button" class="btn btn-danger">Xác nhận</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Logout Form --}}
+<form name="logout-form" action="me/logout" method="POST"></form>
+
+{{!-- require login --}}
+<div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Bạn cần đăng nhập để dùng chức năng này</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var loginOption = $(".login-is-here"); // Chọn phần tử có class là login-is-here
+        var loginId = loginOption.attr("id");
+        var logoutOption = $(".logout-is-here");
+        var btnComfirmLogout = document.getElementById('btn-confirm-logout')
+        var logoutForm = document.forms['logout-form']
+        var ucs = $('.usercases')
+        var requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
+
+        // Xử phần đăng nhập và đăng xuất
+        if (loginId === '<') {
+            // Nếu không có ID, ẩn đi phần đăng xuất
+            logoutOption.css("display", "none");
+            // Loại bỏ thuộc tính style từ phần đăng nhập
+            loginOption.css("display", "");
+        } else {
+            // Nếu có ID, ẩn đi phần đăng nhập
+            loginOption.css("display", "none");
+            // Loại bỏ thuộc tính style từ phần đăng xuất
+            logoutOption.css("display", "");
+        }
+
+        // xử lý phần xác nhận đăng xuất
+        btnComfirmLogout.onclick = function () {
+            logoutForm.submit()
+        }
+
+        // sử lý usercase
+        ucs.click(function (event) {
+            if (loginId === '<') {
+                event.preventDefault()
+                requireLoginModel.show()
+            }
+        })
+    });
+</script>   
