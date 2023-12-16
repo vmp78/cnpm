@@ -5,29 +5,52 @@
         <thead class="table-active">
             <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Mã căn hộ</th>
+            <th scope="col">Chủ hộ</th>
+            <th scope="col">Diện tích (m^2)</th>
+            <th scope="col">Gửi xe</th>
+            <th scope="col"></th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
+            {{#each accommodation}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.houseId}}</td>
+                    <td>{{this.householder}}</td>
+                    <td>{{this.area}}</td>
+                    <td>{{this.parkingLot}}</td>
+                    <td>
+                        <a href="/accom/{{this._id}}/edit" class="btn btn-warning">Edit</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-accom">Delete</a>
+                    </td>
+                </tr>
+            {{else}}
             <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+                <td colspan="6" class="text-center">
+                    You have nothing left!  
+                </td>
             </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
+</div>
+
+{{!-- confirm delete --}}
+<div class="modal fade" id="delete-accom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CẢNH BÁO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá căn hộ này?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-property" type="button" class="btn btn-danger">Delete anyway</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
