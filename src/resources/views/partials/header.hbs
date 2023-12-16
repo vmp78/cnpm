@@ -8,7 +8,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <li class="navbar-nav">
-                <a class="nav-link active usercases" aria-current="page" href="#">Nhân Khẩu</a>
+                <a class="nav-link active usercases" aria-current="page" href="/pop">Nhân Khẩu</a>
             </li>
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="#">Khoản Phí</a>
@@ -32,7 +32,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="pop/create">Thêm nhân khẩu</a></li>
+                    <li><a class="dropdown-item manage-population" href="pop/create">Quản lý nhân khẩu</a></li>
+                    <li><a class="dropdown-item manage-accommodation" href="accom/my-accommodations">Quản lý căn hộ</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item login-is-here" id="{{username}}<" href="me/login">Đăng nhập</a></li>
                     <li><a class="dropdown-item logout-is-here" href="#" data-bs-toggle="modal" data-bs-target="#logout">Đăng xuất</a></li>
@@ -80,12 +81,14 @@
         var loginOption = $(".login-is-here"); // Chọn phần tử có class là login-is-here
         var loginId = loginOption.attr("id");
         var logoutOption = $(".logout-is-here");
+        var managePopulationOption = $(".manage-population");
+        var manageAccommodationOption = $(".manage-accommodation");
         var btnComfirmLogout = document.getElementById('btn-confirm-logout')
         var logoutForm = document.forms['logout-form']
         var ucs = $('.usercases')
         var requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
 
-        // Xử phần đăng nhập và đăng xuất
+        // Xử phần đăng nhập, đăng xuất và thêm nhân khẩu
         if (loginId === '<') {
             // Nếu không có ID, ẩn đi phần đăng xuất
             logoutOption.css("display", "none");
@@ -110,5 +113,16 @@
                 requireLoginModel.show()
             }
         }) --}}
+
+        // quản lý nhân khẩu và căn hộ
+        if (loginId !== 'admin<') {
+            // Nếu không có ID là admin, ẩn đi chức năng quản lý
+            managePopulationOption.css("display", "none");
+            manageAccommodationOption.css("display", "none");
+        } else {
+            // Nếu có ID là admin, hiển thị chức năng quản lý
+            managePopulationOption.css("display", "");
+            manageAccommodationOption.css("display", "");
+        }
     });
 </script>

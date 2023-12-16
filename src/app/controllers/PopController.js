@@ -3,7 +3,10 @@ const session = require('express-session');
 const Accom = require('../models/Accommodation')
 
 class PopController {
-
+    // [GET] /pop
+    show(req, res, next) {
+        res.render('population/my-population')
+}
     // [GET] /pop/create
     create(req, res, next) {
         res.render('population/create')
