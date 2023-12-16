@@ -5,7 +5,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class PopController {
     // [GET] /accom
     show(req, res, next) {
-        Accom.find({})
+        Accom.find({ deleted: false })
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
                     accommodation: multipleMongooseToObject(accom)
@@ -42,8 +42,23 @@ class PopController {
             })
             .catch(next)
     }
+
+    // [PUT] /accom/:id
+    update(req, res, next) {
+        // res.json(req.params)
+        // res.json(req.body)
+        Accom.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('my-accommodations'))
+            .catch(next)
+    }
+
+    // [DELETE] /accom/:id
+    delete(req, res, next) {
+        // res.json(req.params)
+        Accom.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
 }
-
-
 
 module.exports = new PopController();
