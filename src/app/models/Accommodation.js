@@ -38,4 +38,12 @@ Accom.statics.delete = function(accomId) {
         }
     };
 
+// define restore
+Accom.statics.restore = function (accomId) {
+    return this.findByIdAndUpdate(accomId, {
+        deleted: false,
+        deletedAt: null,
+    });
+};
+
 module.exports = mongoose.model('Acommodation', Accom);

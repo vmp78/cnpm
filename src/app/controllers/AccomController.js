@@ -8,7 +8,7 @@ class PopController {
         Accom.find({ deleted: false })
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
-                    accommodation: multipleMongooseToObject(accom)
+                    accommodation: multipleMongooseToObject(accom),
                 })
             })
             .catch(next)
@@ -56,6 +56,31 @@ class PopController {
     delete(req, res, next) {
         // res.json(req.params)
         Accom.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+
+    // [GET] /accom/deleted-accom
+    bin(req, res, next) {
+        Accom.find({ deleted: true })
+            .then((accom) => {
+                res.render('accommodation/deleted-accommodations', {
+                    accommodation: multipleMongooseToObject(accom),
+                })
+            })
+            .catch(next)
+    }
+
+    // [PATCH] /accom/:id/restore
+    restore(req, res, next) {
+        Accom.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+
+    // [DELETE] /accom/:id/permanent
+    destroy(req, res, next) {
+        Accom.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next)
     }
