@@ -5,7 +5,7 @@ const Accom = require('../models/Accommodation')
 class PopController {
     // [GET] /pop
     show(req, res, next) {
-        res.render('population/my-population')
+        res.render('population/my-populations')
 }
     // [GET] /pop/create
     create(req, res, next) {

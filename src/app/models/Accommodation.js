@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const Accom = new Schema({
     houseId: { type: String, required: true , unique: true },
-    householder: { type: String,default: 'unrented', required: true },
+    householder: { type: String,default: 'Chưa cho thuê', required: true },
     area: { type: Number, required: true },
     parkingLot: { type: String, default: 'none', required: true },
     deleted: {
