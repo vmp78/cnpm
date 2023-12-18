@@ -9,6 +9,7 @@ function route(app) {
     app.use('/pop', PopRouter);
     app.use('/accom', AccomRouter);
     app.use('/payment', PayRouter);
+    app.use('/payment', PayRouter);
     app.use('/', siteRouter);
 }
 
