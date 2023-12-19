@@ -35,7 +35,7 @@
                     <li><a class="dropdown-item manage-population" href="pop/">Quản lý nhân khẩu</a></li>
                     <li><a class="dropdown-item manage-accommodation" href="accom/my-accommodations">Quản lý căn hộ</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item login-is-here" id="{{info.username}}<" href="me/login">Đăng nhập</a></li>
+                    <li id="loginRow"><a class="dropdown-item login-is-here" id="{{info.username}}<">Đăng nhập</a></li>
                     <li><a class="dropdown-item logout-is-here" href="#" data-bs-toggle="modal" data-bs-target="#logout">Đăng xuất</a></li>
                 </ul>
             </li>
@@ -63,7 +63,7 @@
 </div>
 
 {{!-- Logout Form --}}
-<form name="logout-form" action="me/logout" method="POST"></form>
+{{!-- <form name="logout-form" action="me/logout" method="POST"></form> --}}
 
 {{!-- require login --}}
 <div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,6 +92,7 @@
         const ucs = $('.usercases')
         const requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
         const btnLogin = document.getElementById("btn-login")
+        const loginRow = document.getElementById("loginRow")
 
         // Xử phần đăng nhập, đăng xuất và thêm nhân khẩu
         if (loginId === '<') {
@@ -106,9 +107,14 @@
             logoutOption.css("display", "");
         }
 
+        loginRow.onclick = function () {
+            window.location.href = '/me/login';
+        }
+
         // xử lý phần xác nhận đăng xuất
         btnComfirmLogout.onclick = function () {
-            logoutForm.submit()
+            {{!-- logoutForm.submit(), --}}
+            window.location.href = '/me/logout';
         }
 
         // yêu cầu đăng nhập
