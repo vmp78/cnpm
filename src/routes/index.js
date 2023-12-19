@@ -3,6 +3,7 @@ const meRouter = require('./me');
 const PopRouter = require('./population');
 const AccomRouter = require('./accommodation');
 const PayRouter = require('./payment');
+const TinhtienRouter = require('./tintien');
 
 function route(app) {
     app.use('/me', meRouter);
@@ -10,6 +11,7 @@ function route(app) {
     app.use('/accom', AccomRouter);
     app.use('/payment', PayRouter);
     app.use('/payment', PayRouter);
+    app.use('/tinhtien', TinhtienRouter);
     app.use('/', siteRouter);
 }
 

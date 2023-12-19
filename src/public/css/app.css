@@ -23,7 +23,8 @@ body, html {
   flex-grow: 1; }
 
 .footer {
-  color: blue; }
+  color: pink;
+  text-align: center; }
 
 .auth-form {
   display: flex;
