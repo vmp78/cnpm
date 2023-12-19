@@ -5,10 +5,12 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class PopController {
     // [GET] /accom
     show(req, res, next) {
+        var info = req.session.info || 'none'
         Accom.find({ deleted: false })
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
                     accommodation: multipleMongooseToObject(accom),
+                    username: info.username,
                 })
             })
             .catch(next)

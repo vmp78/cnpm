@@ -1,0 +1,35 @@
+<div class="mmt-4">
+    <table class="table mt-2">
+        <thead class="table-active">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {{#each renters}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.fullname}}</td>
+                    <td>{{this.birth}}</td>
+                    <td>{{this.phoneNumber}}</td>
+                    <td>{{this.email}}</td>
+                    <td>
+                        <a href="/accom/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-accom">Xoá</a>
+                    </td>
+                </tr>
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    You are admin?  
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
