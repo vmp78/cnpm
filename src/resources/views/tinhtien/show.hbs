@@ -1,1 +1,121 @@
-<h1>day la trnag tinh tien</h1>
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    #totalFee {
+      font-weight: bold;
+      margin-top: 10px;
+      color: white;
+    }
+
+    #totalFeeText {
+      color: white;
+    }
+  </style>
+
+
+  
+<body>
+  <form onsubmit="return calculateTotalFee()">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Khoản Phí</th>
+          <th scope="col">Đơn Giá</th>
+          <th scope="col">Số Lượng</th>
+          <th scope="col">Tổng Tiền</th>
+          <th scope="col">Xóa</th>
+        </tr>
+      </thead>
+      <tbody id="feeTableBody">
+        <!-- Hàng mẫu, có thể bị ẩn -->
+        <tr style="display: none;">
+          <td><input type="text" name="fee[]" onchange="updateTotal(this)"></td>
+          <td><input type="text" name="price[]" onchange="updateTotal(this)"></td>
+          <td><input type="text" name="quantity[]" onchange="updateTotal(this)"></td>
+          <td><input type="text" name="total[]" readonly></td>
+          <td><button type="button" onclick="deleteRow(this)">Xóa</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" align="right"><span id="totalFeeText">Tổng Phí:</span></td>
+          <td><span id="totalFee"></span></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <button type="button" onclick="addRow()">Thêm Khoản Phí</button>
+    <input type="submit" value="Gửi">
+  </form>
+
+  <script>
+    function addRow() {
+      var tableBody = document.getElementById("feeTableBody");
+      var rowCount = tableBody.rows.length;
+
+      var row = tableBody.insertRow();
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+
+      var sampleRow = tableBody.rows[0].cloneNode(true);
+      sampleRow.style.display = ""; // Hiển thị hàng mới
+      sampleRow.id = "feeRow" + rowCount;
+      sampleRow.cells[0].querySelector('input').name = "fee[]";
+      sampleRow.cells[1].querySelector('input').name = "price[]";
+      sampleRow.cells[2].querySelector('input').name = "quantity[]";
+      sampleRow.cells[3].querySelector('input').name = "total[]";
+      sampleRow.cells[4].innerHTML = '<button type="button" onclick="deleteRow(this)">Xóa</button>';
+
+      tableBody.appendChild(sampleRow);
+    }
+
+    function updateTotal(input) {
+      var row = input.parentNode.parentNode;
+      var price = parseFloat(row.cells[1].querySelector('input').value) || 0;
+      var quantity = parseFloat(row.cells[2].querySelector('input').value) || 0;
+      var total = price * quantity;
+
+      row.cells[3].querySelector('input').value = total.toFixed(2);
+      calculateTotalFee(); // Cập nhật tổng phí khi có sự thay đổi
+    }
+
+    function calculateTotalFee() {
+      var totalFee = 0;
+      var totalFeeElement = document.getElementById("totalFee");
+      var totalFeeInputs = document.getElementsByName("total[]");
+
+      for (var i = 0; i < totalFeeInputs.length; i++) {
+        totalFee += parseFloat(totalFeeInputs[i].value) || 0;
+      }
+
+      totalFeeElement.innerHTML = totalFee.toFixed(2);
+    }
+
+    function deleteRow(button) {
+      var row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+      calculateTotalFee(); // Cập nhật tổng phí khi có sự xóa
+    }
+  </script>
+</body>
