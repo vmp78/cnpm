@@ -11,7 +11,7 @@
                 <a class="nav-link active usercases" aria-current="page" href="/pop/renter">Nhân Khẩu</a>
             </li>
             <li class="navbar-nav">
-                <a class="nav-link active usercases" aria-current="page" href="/payment/show">Khoản Phí</a>
+                <a class="nav-link active" aria-current="page" href="/payment/show">Khoản Phí</a>
             </li>
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="#">Tính Tiền</a>
@@ -35,7 +35,7 @@
                     <li><a class="dropdown-item manage-population" href="pop/">Quản lý nhân khẩu</a></li>
                     <li><a class="dropdown-item manage-accommodation" href="accom/my-accommodations">Quản lý căn hộ</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item login-is-here" id="{{username}}<" href="me/login">Đăng nhập</a></li>
+                    <li><a class="dropdown-item login-is-here" id="{{info.username}}<" href="me/login">Đăng nhập</a></li>
                     <li><a class="dropdown-item logout-is-here" href="#" data-bs-toggle="modal" data-bs-target="#logout">Đăng xuất</a></li>
                 </ul>
             </li>
@@ -72,21 +72,26 @@
             <div class="modal-body">
                 <p>Bạn cần đăng nhập để dùng chức năng này</p>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                <button id="btn-login" type="button" class="btn btn-primary">Đăng nhập</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var loginOption = $(".login-is-here"); // Chọn phần tử có class là login-is-here
-        var loginId = loginOption.attr("id");
-        var logoutOption = $(".logout-is-here");
-        var managePopulationOption = $(".manage-population");
-        var manageAccommodationOption = $(".manage-accommodation");
-        var btnComfirmLogout = document.getElementById('btn-confirm-logout')
-        var logoutForm = document.forms['logout-form']
-        var ucs = $('.usercases')
-        var requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
+        const loginOption = $(".login-is-here"); // Chọn phần tử có class là login-is-here
+        const loginId = loginOption.attr("id");
+        const logoutOption = $(".logout-is-here");
+        const managePopulationOption = $(".manage-population");
+        const manageAccommodationOption = $(".manage-accommodation");
+        const btnComfirmLogout = document.getElementById('btn-confirm-logout')
+        const logoutForm = document.forms['logout-form']
+        const ucs = $('.usercases')
+        const requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
+        const btnLogin = document.getElementById("btn-login")
 
         // Xử phần đăng nhập, đăng xuất và thêm nhân khẩu
         if (loginId === '<') {
@@ -106,13 +111,18 @@
             logoutForm.submit()
         }
 
-        // sử lý usercase
-            ucs.click(function (event) {
-                if (loginId === '<') {
-                    event.preventDefault()
-                    requireLoginModel.show()
-                }
-            })
+        // yêu cầu đăng nhập
+        ucs.click(function (event) {
+            if (loginId === '<') {
+                event.preventDefault()
+                requireLoginModel.show()
+            }
+        })
+
+        // xử lý nút đăng nhập trong phần yêu cầu đăng nhập
+        btnLogin.onclick = function () {
+            window.location.href = '/me/login';
+        }
 
         // quản lý nhân khẩu và căn hộ
         if (loginId !== 'admin<') {

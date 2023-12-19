@@ -6,7 +6,7 @@ class SiteController {
         console.log(req.session.info)
         console.log(res.locals.headerData)
         var info = req.session.info || 'none'
-        res.render('home', { username: info.username })
+        res.render('home', { info: info })
     }
 
     // [GET] /news/:slug

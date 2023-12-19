@@ -7,7 +7,7 @@ class PopController {
     // [GET] /pop
     show(req, res, next) {
         var info = req.session.info || 'none'
-        res.render('population/my-populations', { username: info.username })
+        res.render('population/my-populations', { info: info })
 }
     // [GET] /pop/create
     create(req, res, next) {
@@ -30,7 +30,7 @@ class PopController {
         Authentication.find({ householer: info.householer })
             .then((renters) => {
                 res.render('population/renter', {
-                    username: info.username,
+                    info: info,
                     renters: multipleMongooseToObject(renters),
                 })
             })

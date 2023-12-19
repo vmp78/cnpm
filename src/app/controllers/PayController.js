@@ -3,7 +3,8 @@ const session = require('express-session');
 class PayController {
     // [GET] /payment/show
     show(req, res) {
-        res.render('payment/show');
+        var info = req.session.info || null
+        res.render('payment/show', { info });
     }
 }
 

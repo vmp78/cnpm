@@ -10,7 +10,7 @@ class PopController {
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
                     accommodation: multipleMongooseToObject(accom),
-                    username: info.username,
+                    info: info,
                 })
             })
             .catch(next)
@@ -79,6 +79,7 @@ class PopController {
             .then(() => res.redirect('back'))
             .catch(next)
     }
+
 
     // [DELETE] /accom/:id/permanent
     destroy(req, res, next) {
