@@ -1,0 +1,41 @@
+<div class="mt-4">
+    <h1>Các khoản phí mà mỗi căn hộ phải đóng</h1>
+    <form action="/payment/update?_method=PUT" method="POST">
+        <div class="mb-3">
+            <label for="description" class="form-label">Giá thuê nhà (VNĐ/m^2)</label>
+            <input type="text" class="form-control" value="{{accom.houseId}}" id="houseId" name="houseId">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Giá điện (VNĐ/số)</label>
+            <input type="text" class="form-control" value="{{accom.householder}}" id="householder" name="householder">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Giá nước(VNĐ/khối)</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Chi phí gửi ô tô (VNĐ/tháng)</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Chi phí gửi xe máy (VNĐ/tháng)</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Chi phí gửi xe đạp (VNĐ/tháng)</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Chi phí vệ sinh (VNĐ/tháng)</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+        </div>
+
+        <button type="submit" class="btn btn-primary">SAVE</button>
+    </form>
+</div>

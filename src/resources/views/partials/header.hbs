@@ -19,9 +19,6 @@
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="#">Nộp Tiền</a>
             </li>
-            <li class="navbar-nav">
-                <a class="nav-link" href="#">Link đi đâu đó</a>
-            </li>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -31,7 +28,7 @@
                 Dropdown
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item manage-expenses" href="/payment/edit">Quản lý các khoản phí</a></li>
                     <li><a class="dropdown-item manage-population" href="/pop/">Quản lý nhân khẩu</a></li>
                     <li><a class="dropdown-item manage-accommodation" href="/accom/my-accommodations">Quản lý căn hộ</a></li>
                     <li><hr class="dropdown-divider"></li>
@@ -87,6 +84,7 @@
         const logoutOption = $(".logout-is-here");
         const managePopulationOption = $(".manage-population");
         const manageAccommodationOption = $(".manage-accommodation");
+        const manageExpensesOption = $(".manage-expenses");
         const btnComfirmLogout = document.getElementById('btn-confirm-logout')
         const logoutForm = document.forms['logout-form']
         const ucs = $('.usercases')
@@ -113,12 +111,12 @@
         }
 
         // yêu cầu đăng nhập
-        {{!-- ucs.click(function (event) {
+        ucs.click(function (event) {
             if (loginId === '<') {
                 event.preventDefault()
                 requireLoginModel.show()
             }
-        }) --}}
+        })
 
         // xử lý nút đăng nhập trong phần yêu cầu đăng nhập
         btnLogin.onclick = function () {
@@ -130,10 +128,12 @@
             // Nếu không có ID là admin, ẩn đi chức năng quản lý
             managePopulationOption.css("display", "none");
             manageAccommodationOption.css("display", "none");
+            manageExpensesOption.css("display", "none");
         } else {
             // Nếu có ID là admin, hiển thị chức năng quản lý
             managePopulationOption.css("display", "");
             manageAccommodationOption.css("display", "");
+            manageExpensesOption.css("display", "");
         }
     });
 </script>
