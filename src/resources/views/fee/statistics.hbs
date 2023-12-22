@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên chủ hộ</th>
+            <th scope="col">Mã căn hộ</th>
+            {{#each data.fee}}
+            <th scope="col">{{this.name}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{@index 1}}</td>
+            <td>{{this.houseHoder}}</td>
+            <td>{{this.houseId}}</td>
+            {{#each data.fee}}
+            <td>{{this.amount}}</td>
+            {{/each}}
+        </tr>
+        {{/each}}
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>

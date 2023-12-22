@@ -1,4 +1,4 @@
-<div class="mt-4">
+{{!-- <div class="mt-4">
     <h1>Các khoản phí mà mỗi căn hộ phải đóng</h1>
     <form action="/payment/update?_method=PUT" method="POST">
         <div class="mb-3">
@@ -38,4 +38,46 @@
 
         <button type="submit" class="btn btn-primary">SAVE</button>
     </form>
+</div> --}}
+<div class="mt-4">
+    <h2>Danh Sách Căn Hộ</h2>
+    <button type="button" class="btn btn-light"><a href="/fee/create">
+        <i class="bi bi-plus-circle-dotted"></i>
+        Thêm khoản phí
+    </a></button>
+    <table class="table mt-2">
+        <thead class="table-active">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên khoản phí</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Loại khoản phí</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {{#each data}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.rate}}</td>
+                    <td>{{this.type}}</td>
+                    <td>
+                        <a href="/fee/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-fee">Xoá</a>
+                    </td>
+                </tr>
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    You have nothing left!  
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>
+
+{{!-- Thêm phần xóa, sửa thông tin các khoản phí --}}
+
+
