@@ -2,7 +2,7 @@
     <h3>Đăng ký nhân khẩu</h3>
 
     <form action="/pop/store" method="post">
-        <div class="mb-3">
+        {{!-- <div class="mb-3">
             <label for="description" class="form-label">Tên đăng nhập</label>
             <input type="text" class="form-control" id="username" name="username">
         </div>
@@ -10,16 +10,30 @@
         <div class="mb-3">
             <label for="description" class="form-label">Mật khẩu</label>
             <input type="text" class="form-control" id="pass" name="pass">
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="description" class="form-label">Họ và tên</label>
-            <input type="text" class="form-control" id="fullname" name="fullname">
+            <input type="text" class="form-control" id="name" name="name">
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Ngày sinh</label>
-            <input type="text" class="form-control" id="birth" name="birth">
+            <label for="description" class="form-label">Id</label>
+            <input type="text" class="form-control" id="Id" name="Id">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Tuổi</label>
+            <input type="text" class="form-control" id="age" name="age">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Giới tính</label>
+            <select class="form-select" name="gender" aria-label="Default select example">
+                <option value="Nam" selected>Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -33,13 +47,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Mã chủ hộ</label>
-            <input type="text" class="form-control" id="householer" name="householer">
-        </div>
-
-        <div class="mb-3">
             <label for="description" class="form-label">Mã căn hộ</label>
             <input type="text" class="form-control" id="houseId" name="houseId">
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">Là chủ hộ</label>
+            <select class="form-select" name="isHouseholder" aria-label="Default select example">
+                <option value="false" selected>Không</option>
+                <option value="true">Có</option>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">ADD</button>

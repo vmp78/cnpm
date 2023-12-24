@@ -1,16 +1,17 @@
 // const session = require('express-session');
 const Accom = require('../models/Accommodation')
+const Resident = require('../models/Resident')
 const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoose');
 
 class PopController {
-    // [GET] /accom
+    // [GET] /accom/my-accommodations
     show(req, res, next) {
         var info = req.session.info || 'none'
         Accom.find({ deleted: false })
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
                     accommodation: multipleMongooseToObject(accom),
-                    info: info,
+                    info,
                 })
             })
             .catch(next)
@@ -18,7 +19,9 @@ class PopController {
 
     // [GET] /accom/create
     create(req, res, next) {
-        res.render('accommodation/create')
+        var info = req.session.info || 'none'
+
+        res.render('accommodation/create', { info })
     }
 
     // [POST] /accom/store
@@ -34,12 +37,14 @@ class PopController {
 
     // [GET] /accom/:id/edit
     edit(req, res, next) {
+        var info = req.session.info || 'none'
         // res.json(req.params)
         Accom.findById(req.params.id)
             .then((accom) => {
                 // res.json(accom)
                 res.render('accommodation/edit', {
                     accom: mongooseObject(accom),
+                    info,
                 })
             })
             .catch(next)
@@ -64,10 +69,13 @@ class PopController {
 
     // [GET] /accom/deleted-accom
     bin(req, res, next) {
+        var info = req.session.info || 'none'
+
         Accom.find({ deleted: true })
             .then((accom) => {
                 res.render('accommodation/deleted-accommodations', {
                     accommodation: multipleMongooseToObject(accom),
+                    info,
                 })
             })
             .catch(next)

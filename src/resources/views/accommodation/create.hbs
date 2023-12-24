@@ -1,5 +1,6 @@
 <div class="mt-4">
     <h3>Thêm căn hộ</h3>
+    <a href="/accom/my-accommodations"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
     <form action="/accom/store" method="post">
         <div class="mb-3">
             <label for="description" class="form-label">Mã căn hộ</label>
@@ -8,7 +9,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Mã chủ hộ</label>
-            <input type="text" class="form-control" id="householder" name="householder">
+            <input type="text" class="form-control" id="householder" name="householder" value="Chưa cho thuê">
         </div>
 
         <div class="mb-3">
@@ -29,3 +30,4 @@
         <button type="submit" class="btn btn-primary">ADD</button>
     </form>
 </div>
+

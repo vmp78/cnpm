@@ -4,7 +4,7 @@ class SiteController {
     // [GET] /
     home(req, res, next) {
         var info = req.session.info || 'none'
-        res.render('home', { info: info })
+        res.render('home', { info })
     }
 
     // [GET] /news/:slug

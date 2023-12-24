@@ -1,0 +1,43 @@
+<div class="mt-4">
+    <h3>Cập nhật dân cư</h3>
+    <form action="/pop/{{pop._id}}?_method=PUT" method="POST">
+        <div class="mb-3">
+            <label for="description" class="form-label">Họ và tên</label>
+            <input type="text" class="form-control" value="{{pop.name}}" id="name" name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Tuổi</label>
+            <input type="text" class="form-control" value="{{pop.age}}" id="age" name="age">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Giới tính</label>
+            <select class="form-select" name="gender" aria-label="Default select example">
+                <option value="Nam" selected>Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" value="{{pop.phoneNumber}}" id="phoneNumber" name="phoneNumber">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Email</label>
+            <input type="text" class="form-control" value="{{pop.email}}" id="email" name="email">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Là chủ hộ</label>
+            <select class="form-select" name="isHouseholder" aria-label="Default select example">
+                <option value="false" selected>Không</option>
+                <option value="true">Có</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">SAVE</button>
+    </form>
+</div>

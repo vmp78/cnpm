@@ -20,8 +20,10 @@ class MeController {
             .then(result => {
                 if (result) {
                     // login succesfully
-                    req.session.info = result
-                    res.locals.username = username;
+                    // req.session.info = result;
+                    req.session.info = result.Id;
+                    // res.locals.username = username;
+                    res.locals.username = result.username;
                     res.redirect('/')
                 } else {
                     res.redirect('back')

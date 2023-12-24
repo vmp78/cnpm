@@ -3,10 +3,13 @@
         <thead class="table-active">
             <tr>
             <th scope="col">#</th>
+            <th scope="col">Id</th>
             <th scope="col">Họ và tên</th>
-            <th scope="col">Ngày sinh</th>
+            <th scope="col">Tuổi</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Số điện thoại</th>
             <th scope="col">Email</th>
+            <th scope="col">Chủ hộ?</th>
             <th scope="col"></th>
             </tr>
         </thead>
@@ -14,22 +17,48 @@
             {{#each renters}}
                 <tr>
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.fullname}}</td>
-                    <td>{{this.birth}}</td>
+                    <td>{{this.Id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.age}}</td>
+                    <td>{{this.gender}}</td>
                     <td>{{this.phoneNumber}}</td>
                     <td>{{this.email}}</td>
                     <td>
-                        <a href="/accom/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
-                        <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-accom">Xoá</a>
+                        {{#if this.isHouseholder}}
+                            Yep
+                        {{/if}}
+                    </td>
+                    <td>
+                        <a href="/pop/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-pop">Xoá</a>
                     </td>
                 </tr>
-            {{else}}
+            {{!-- {{else}}
             <tr>
                 <td colspan="6" class="text-center">
                     You are admin?  
                 </td>
-            </tr>
+            </tr> --}}
             {{/each}}
         </tbody>
     </table>
 </div>
+
+{{!-- confirm delete --}}
+<div class="modal fade" id="delete-pop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CẢNH BÁO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn không có thẩm quyền để thực hiện chức năng này!!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
