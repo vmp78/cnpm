@@ -14,7 +14,7 @@
                 <a class="nav-link active" aria-current="page" href="/payment/show">Khoản Phí</a>
             </li>
             <li class="navbar-nav">
-                <a class="nav-link active usercases" aria-current="page" href="/tinhtien/">Tính Tiền</a>
+                <a class="nav-link active usercases" aria-current="page" href="/fee/">Các khoản phí</a>
             </li>
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="#">Nộp Tiền</a>
@@ -44,6 +44,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item manage-expenses" href="/payment/edit">Quản lý các khoản phí</a></li>
+                    <li><a class="dropdown-item manage-expenses" href="/fee/statistics">Thống kê các khoản phí</a></li>
                     <li><a class="dropdown-item manage-population" href="/pop/">Quản lý nhân khẩu</a></li>
                     <li><a class="dropdown-item manage-accommodation" href="/accom/my-accommodations">Quản lý căn hộ</a></li>
                     <li><hr class="dropdown-divider"></li>
@@ -127,7 +128,7 @@
 
         // yêu cầu đăng nhập
         ucs.click(function (event) {
-            if (loginId === 'none<') {
+            if (loginId === '<') {
                 event.preventDefault()
                 requireLoginModel.show()
             }

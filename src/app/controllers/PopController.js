@@ -6,12 +6,21 @@ class PopController {
     // [GET] /pop
     show(req, res, next) {
         var info = req.session.info || 'none'
-        Authentication.distinct('householer')
-            .then((pop) => res.render('population/my-populations', {
+        // Authentication.distinct('householer')
+        //     .then((pop) => res.render('population/my-populations', {
+        //         info,
+        //         pop,
+        //     }))
+        //     .catch(next)
+        Resident.find({ isHouseholder: true })
+        .then((resident) => {
+            // res.json(resident)
+            res.render('population/my-populations', {
+                resident: multipleMongooseToObject(resident),
                 info,
-                pop,
-            }))
-            .catch(next)
+            })
+        })
+        .catch(next)
     }
     
     // [GET] /pop/create
@@ -71,7 +80,7 @@ class PopController {
         //         })
         //     })
         //     .catch(next)
-        res.send('nhung ho da bi xoa')
+        res.render('population/deleted-pops')
     }
 
     // [GET] /pop/:id/edit
