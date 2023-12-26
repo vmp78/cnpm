@@ -8,7 +8,7 @@
         <i class="bi bi-trash3-fill"></i>
         Thùng rác
     </a></button>
-    <table class="table table-hover mt-2">
+    <table class="table table-hover mt-2" id="main-table">
         <thead class="table-active">
             <tr>
                 <th scope="col">#</th>
@@ -28,11 +28,11 @@
                     <td>{{this.houseId}}</td>
                     <td>{{countWithFieldValue ../subResident "houseId" this.houseId}}</td>
                     <td>
-                        <a href="#"><i class="bi bi-arrow-bar-right"></i> haha</a>
+                        <a href="#" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> haha</a>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="6" id="subTable{{sum @index 1}}" class="subTable{{sum @index 1}} collapse" data-bs-parent="#main-table">
+                <tr id="subTable{{sum @index 1}}" class="subTable{{sum @index 1}} collapse" data-bs-parent="#main-table">
+                    <td colspan="6">
                         <table class="table table-bordered">
                             <tbody>
                                 {{#each ../subResident}}
@@ -64,3 +64,12 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    const additionalFuntion = $('.additionalFuntion')
+
+    additionalFuntion.click(function (e) {
+        e.preventDefault;
+        window.location.href = '/';
+    })
+</script>
