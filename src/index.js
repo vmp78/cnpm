@@ -84,6 +84,17 @@ app.engine(
                     return false;
                 }
             },
+            countWithFieldValue: (array, fieldName, fieldValue) => {
+                let count = 0;
+
+                array.forEach(function(item) {
+                    if (item[fieldName] === fieldValue) {
+                      count++;
+                    }
+                  });
+                
+                return count;
+            },
         },
     }),
 );
