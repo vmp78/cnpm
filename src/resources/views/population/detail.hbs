@@ -1,4 +1,6 @@
-<div class="mmt-4">
+<div class="mt-4">
+    <h2>THÔNG TIN CHI TIẾT</h2>
+    <a href="/pop/"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
     <table class="table mt-2">
         <thead class="table-active">
             <tr>
@@ -14,7 +16,7 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            {{#each renters}}
+            {{#each pop}}
                 <tr>
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.Id}}</td>
@@ -29,7 +31,7 @@
                         {{/if}}
                     </td>
                     <td>
-                        <a {{!-- href="/pop/{{this._id}}/edit" --}} class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#delete-pop">Chỉnh sửa</a>
+                        <a href="/pop/{{this._id}}/{{../_id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-pop">Xoá</a>
                     </td>
                 </tr>
@@ -44,21 +46,6 @@
     </table>
 </div>
 
-{{!-- confirm delete --}}
-<div class="modal fade" id="delete-pop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">CẢNH BÁO</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn không có thẩm quyền để thực hiện chức năng này!!!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<script>
+    
+</script>
