@@ -1,4 +1,47 @@
 <div class="mt-4">
     <h3>Thùng rác</h3>
     <a href="/pop/"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
+    <table class="table table-hover mt-2" id="main-table">
+        <thead class="table-active">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Mã căn hộ</th>
+            <th scope="col">Chủ hộ</th>
+            <th scope="col">Diện tích (m^2)</th>
+            <th scope="col">Gửi xe</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+                <tr data-bs-toggle="collapse" data-bs-target="#subTable" aria-expanded="false" aria-controls="subTable">
+                    <th scope="row">qưe</th>
+                    <td>qưé</td>
+                    <td>dfa</td>
+                    <td>bvc</td>
+                    <td>ksk</td>
+                    <td>
+                        <a href="/accom/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-accom">Xoá</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" id="subTable" class="subTable collapse" data-bs-parent="#main-table">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>dfa</td>
+                                    <td>bvc</td>
+                                    <td>ksk</td>
+                                </tr>
+                                <tr>
+                                    <td>ádà</td>
+                                    <td>bvdfgdgc</td>
+                                    <td>ksdgdk</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
 </div>

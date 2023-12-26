@@ -127,12 +127,12 @@
         }
 
         // yêu cầu đăng nhập
-        ucs.click(function (event) {
+        {{!-- ucs.click(function (event) {
             if (loginId === '<') {
                 event.preventDefault()
                 requireLoginModel.show()
             }
-        })
+        }) --}}
 
         // xử lý nút đăng nhập trong phần yêu cầu đăng nhập
         btnLogin.onclick = function () {
@@ -140,7 +140,7 @@
         }
 
         // quản lý nhân khẩu và căn hộ
-        if (loginId !== 'admin<') {
+        {{!-- if (loginId !== 'admin<') {
             // Nếu không có ID là admin, ẩn đi chức năng quản lý
             managePopulationOption.css("display", "none");
             manageAccommodationOption.css("display", "none");
@@ -151,6 +151,6 @@
             manageAccommodationOption.css("display", "");
             manageExpensesOption.css("display", "");
             ucs.css("display", "none");
-        }
+        } --}}
     });
 </script>

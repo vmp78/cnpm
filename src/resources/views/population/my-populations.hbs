@@ -11,30 +11,55 @@
     <table class="table table-hover mt-2">
         <thead class="table-active">
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Mã chủ hộ</th>
-            <th scope="col">Tên chủ hộ</th>
-            <th scope="col">Mã căn hộ</th>
-            <th scope="col">Số lượng nhân khẩu</th>
-            <th scope="col"></th>
+                <th scope="col">#</th>
+                <th scope="col">Mã chủ hộ</th>
+                <th scope="col">Tên chủ hộ</th>
+                <th scope="col">Mã căn hộ</th>
+                <th scope="col">Số lượng nhân khẩu</th>
+                <th scope="col">[chức năng thêm?]</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             {{#each resident}}
-                <tr>
+                <tr data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.Id}}</td>
                     <td>{{this.name}}</td>
                     <td>{{this.houseId}}</td>
-                    <td>Chưa biết</td>
-                    <td><a href="#"><i class="bi bi-arrow-bar-right"></i></a></td>
+                    <td>[đang thực hiện]</td>
+                    <td>
+                        <a href="#"><i class="bi bi-arrow-bar-right"></i> haha</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" id="subTable{{sum @index 1}}" class="subTable{{sum @index 1}} collapse" data-bs-parent="#main-table">
+                        <table class="table table-bordered">
+                            <tbody>
+                                {{#each ../subResident}}
+                                    {{#if (isEqual this.houseId ../this.houseId)}}
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.age}} tuổi</td>
+                                            <td>{{this.gender}}</td>
+                                        </tr>
+                                    {{/if}}
+                                {{else}}
+                                        <tr>
+                                            <td colspan="3" class="text-center">
+                                                Gì vậy má!  
+                                            </td>
+                                        </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </td>
                 </tr>
             {{else}}
-            <tr>
-                <td colspan="6" class="text-center">
-                    Chưa ai thuê nhà!  
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        Chưa ai thuê nhà!  
+                    </td>
+                </tr>
             {{/each}}
         </tbody>
     </table>

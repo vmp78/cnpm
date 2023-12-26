@@ -77,11 +77,11 @@ app.engine(
                 </a>`;
                 // thiếu bảo mật
             },
-            isEqual: (value1, value2, options) => {
+            isEqual: (value1, value2) => {
                 if (value1 === value2) {
-                    return options.fn(this);
+                    return true;
                 } else {
-                    return options.inverse(this);
+                    return false;
                 }
             },
         },

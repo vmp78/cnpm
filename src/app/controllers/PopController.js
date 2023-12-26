@@ -12,13 +12,30 @@ class PopController {
         //         pop,
         //     }))
         //     .catch(next)
+
+        // Resident.find({ isHouseholder: true })
+        // .then((resident) => {
+        //     // res.json(resident)
+        //     res.render('population/my-populations', {
+        //         resident: multipleMongooseToObject(resident),
+        //         info,
+        //     })
+        // })
+        // .catch(next)
+
         Resident.find({ isHouseholder: true })
         .then((resident) => {
             // res.json(resident)
-            res.render('population/my-populations', {
-                resident: multipleMongooseToObject(resident),
-                info,
-            })
+            Resident.find({ isHouseholder: false })
+                .then((subResident) => {
+                    // res.json(subResident)
+                    res.render('population/my-populations', {
+                        resident: multipleMongooseToObject(resident),
+                        subResident: multipleMongooseToObject(subResident),
+                        info,
+                    })
+                })
+                .catch(next)
         })
         .catch(next)
     }
