@@ -1,20 +1,21 @@
-<div class="mt-4">
-    <h3>Thêm khoản phí</h3>
+<div class="mt-4" style="color:#ffff">
+    <h3>Cập nhật căn hộ</h3>
     <a href="/fee/show"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
-    <form action="/fee/store" method="post">
-        <div class="mb-3">
+    <form action="/fee/{{fee._id}}?_method=PUT" method="POST">
+       <div class="mb-3">
             <label for="description" class="form-label">Tên khoản phí</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" value="{{fee.name}}" required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Đơn giá</label>
-            <input type="text" class="form-control" id="rate" name="rate" required>
+            <input type="text" class="form-control" id="rate" name="rate" value="{{fee.rate}}" required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Loại khoản phí</label>
             <select class="form-select" name="type" aria-label="Default select example">
+                <option value="{{fee.type}}">{{fee.type}}</option>
                 <option value="Bắt buộc">Bắt buộc</option>
                 <option value="Tự nguyện">Tự nguyện</option>
             </select>
@@ -22,15 +23,14 @@
         
         <div class="mb-3">
             <label for="description" class="form-label">Hạn đóng</label>
-            <input type="date" class="form-control" id="deadline" name="deadline" required>
+            <input type="date" class="form-control" id="deadline" name="deadline" value={{fee.deadline}} required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Ghi chú</label>
-            <input type="text" class="form-control" id="note" name="note">
+            <input type="text" class="form-control" id="note" name="note" value="{{fee.note}}">
         </div>
 
         <button type="submit" class="btn btn-primary">ADD</button>
     </form>
 </div>
-
