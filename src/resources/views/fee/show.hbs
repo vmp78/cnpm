@@ -1,71 +1,88 @@
-<form method="GET" id="filterForm">
-  <div class="col-auto my-3">
-    <label class="mr-sm-2" for="inlineFormCustomSelect">Loại khoản phí</label>
-    <select class="custom-select mr-sm-2" name="option" onchange="submit()">
-      <option selected>Tất cả</option>
-      <option value="1">Đã thanh toán</option>
-      <option value="2">Chưa thanh toán</option>
-      <option value="3">Tự nguyện</option>
-    </select>
-  </div>
-</form>
+<div class="mt-4">
+    <h2>Quản lý các khoản phí</h2>
+    <button type="button" class="btn btn-light"><a href="/fee/create">
+            <i class="bi bi-plus-circle-dotted"></i>
+            Thêm khoản phí
+        </a></button>
+    <table class="table mt-2">
+        <thead class="table-active">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên khoản phí</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Loại khoản phí</th>
+                <th scope="col">Thời gian thu</th>
+                <th scope="col">Hạn đóng</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {{#each fee}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.rate}}</td>
+                <td>{{this.type}}</td>
+                <td>{{this.time}}</td>
+                <td>{{this.deadline}}</td>
+                <td>{{this.note}}</td>
+                <td>
+                    <a href="/fee/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}"
+                        data-bs-target="#delete-fee">Xoá</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="9" class="text-center">
+                    You have nothing left!
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Thời gian</th>
-      <th scope="col">Tên khoản phí</th>
-      <th scope="col">Đơn giá</th>
-      <th scope="col">Số lượng</th>
-      <th scope="col">Thành tiền</th>
-      <th scope="col">Loại khoản phí</th>
-      <th scope="col">Trạng thái</th>
-      <th scope="col">Ghi chú</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each data}}
-    <tr>
-      <td>{{@index 1}}</td>
-      <td>{{this.time}}</td>
-      <td>{{this.name}}</td>
-      <td>{{this.rate}}</td>
-      <td>{{this.quantity}}</td>
-      <td>{{this.amount}} VND</td>
-      <td>{{this.type}}</td>
-      <td>{{this.status}}</td>
-      <td>{{this.note}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="4" align="right"><span id="totalFeeText">Tổng phí chưa thanh toán:</span></td>
-      <td><span id="totalFee"></span></td>
-    </tr>
-  </tfoot>
-</table>
+{{!-- confirm delete --}}
+<div class="modal fade" id="delete-fee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CẢNH BÁO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá khoản phí này?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-fee" type="button" class="btn btn-danger">Vẫn Xoá</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- delete form --}}
+<form name="delete-fee-form" method="POST"></form>
 
 <script>
-  
-   function submit() {
-    document.getElementById('filterForm').submit();
-  }
+    document.addEventListener("DOMContentLoaded", function() {
+        var modelComfirmDelete = document.getElementById('delete-fee')
+        var btnComfirmDelete = document.getElementById('btn-delete-fee')
+        var deleteForm = document.forms['delete-fee-form']
+        var feeId
 
-  // Dữ liệu được truyền từ backend
-  const data = {{ data }};
+        // xử lý nút xoá
+        modelComfirmDelete.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+            feeId = button.getAttribute('data-id')
+        })
 
-  // Hiển thị dữ liệu và tính tổng phí chưa thanh toán
-  let totalUnpaidFee = 10000;
-  if (data) {
-    data.forEach((item, index) => {
-      if (item.status === 'chưa thanh toán') {
-        totalUnpaidFee += item.amount;
-      }
+        btnComfirmDelete.onclick = function () {
+            {{!-- alert(feeId) --}}
+            deleteForm.action = '/fee/' + feeId + '/permanent?_method=DELETE'
+            deleteForm.submit()
+        }
     });
-  }
-
-  // Hiển thị tổng phí chưa thanh toán
-  document.getElementById('totalFee').textContent = totalUnpaidFee.toLocaleString('vi-VN') + ' VND';
 </script>

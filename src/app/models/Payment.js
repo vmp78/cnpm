@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const Payment = new Schema({
     houseId: { type: String, required: true },
-    title: { type: String, required: true },
+    name: { type: String, required: true },
     totalPrice: { type: Number, required: true },
     status: { type: Boolean, required: true },
 });

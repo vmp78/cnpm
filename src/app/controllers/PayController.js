@@ -1,5 +1,4 @@
 
-
 class PayController {
     // [GET] /payment/show
     show(req, res) {
