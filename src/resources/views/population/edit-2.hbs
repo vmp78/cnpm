@@ -14,7 +14,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Giới tính</label>
-            <select class="form-select" name="gender" aria-label="Default select example">
+            <select class="form-select" name="gender" id="gender" aria-label="Default select example">
                 <option value="Nam" selected>Nam</option>
                 <option value="Nữ">Nữ</option>
                 <option value="Khác">Khác</option>
@@ -33,8 +33,8 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Là chủ hộ</label>
-            <select class="form-select" name="isHouseholder" aria-label="Default select example">
-                <option value="false" selected>Không</option>
+            <select class="form-select" name="isHouseholder" id="isHouseholder" aria-label="Default select example">
+                <option value="false">Không</option>
                 <option value="true">Có</option>
             </select>
         </div>
@@ -42,3 +42,26 @@
         <button type="submit" class="btn btn-primary">SAVE</button>
     </form>
 </div>
+
+<script>
+    const isHouseholder = document.getElementById('isHouseholder')
+    const gender = document.getElementById('gender')
+
+    // sửa phần lựa chọn sao cho giống với dữ liệu gốc
+    for (var i = 0; i < isHouseholder.options.length; i++) {
+        var option = isHouseholder.options[i];
+        
+        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+        if (option.value === "{{pop.isHouseholder}}") {
+            option.selected = true;
+        }
+    }
+    for (var i = 0; i < gender.options.length; i++) {
+        var option = gender.options[i];
+        
+        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+        if (option.value === "{{pop.gender}}") {
+            option.selected = true;
+        }
+    }
+</script>

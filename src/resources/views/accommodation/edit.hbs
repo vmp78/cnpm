@@ -19,8 +19,8 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Gửi xe</label>
-            <select class="form-select" name="parkingLot" aria-label="Default select example">
-                <option value="Không gửi xe" selected>Không gửi xe</option>
+            <select class="form-select" name="parkingLot" id="parkingLotSelect" aria-label="Default select example">
+                <option value="Không gửi xe">Không gửi xe</option>
                 <option value="Xe máy">Xe máy</option>
                 <option value="Ô tô">Ô tô</option>
                 <option value="Xe đạp">Xe đạp</option>
@@ -30,3 +30,16 @@
         <button type="submit" class="btn btn-primary">SAVE</button>
     </form>
 </div>
+
+<script>
+    var parkingLotSelect = document.getElementById("parkingLotSelect");
+
+    for (var i = 0; i < parkingLotSelect.options.length; i++) {
+        var option = parkingLotSelect.options[i];
+        
+        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+        if (option.value === "{{accom.parkingLot}}") {
+            option.selected = true;
+        }
+    }
+</script>

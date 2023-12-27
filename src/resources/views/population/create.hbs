@@ -13,17 +13,17 @@
             <input type="text" class="form-control" id="pass" name="pass">
         </div> --}}
         
-        <div class="mb-3">
+        {{!-- <div class="mb-3">
             <label for="description" class="form-label">Id</label>
             <input type="text" class="form-control" id="Id" name="Id" required>
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="description" class="form-label">Họ và tên</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
 
-        <div class="mb-3">
+        {{!-- <div class="mb-3">
             <label for="description" class="form-label">Tuổi</label>
             <input type="text" class="form-control" id="age" name="age" required>
         </div>
@@ -35,19 +35,49 @@
                 <option value="Nữ">Nữ</option>
                 <option value="Khác">Khác</option>
             </select>
-        </div>
+        </div> --}}
 
         <div class="mb-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="age" class="form-label">Tuổi</label>
+                    <input type="text" class="form-control" id="age" name="age" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="gender" class="form-label">Giới tính</label>
+                    <select class="form-select" name="gender" aria-label="Default select example">
+                        <option value="Nam" selected>Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        {{!-- <div class="mb-3">
             <label for="description" class="form-label">Số điện thoại</label>
             <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" name="email">
-        </div>
+            <input type="email" class="form-control" id="email" name="email">
+        </div> --}}
 
         <div class="mb-3">
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+                </div>
+            </div>
+        </div>
+
+        {{!-- <div class="mb-3">
             <label for="description" class="form-label">Mã căn hộ</label>
             <input type="text" class="form-control" id="houseId" name="houseId" required>
         </div>
@@ -58,6 +88,22 @@
                 <option value="false" selected>Không</option>
                 <option value="true">Có</option>
             </select>
+        </div> --}}
+
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-md-9">
+                    <label for="houseId" class="form-label">Mã căn hộ</label>
+                    <input type="text" class="form-control" id="houseId" name="houseId" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="isHouseholder" class="form-label">Là chủ hộ</label>
+                    <select class="form-select" name="isHouseholder" aria-label="Default select example">
+                        <option value="false" selected>Không</option>
+                        <option value="true">Có</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">ADD</button>
