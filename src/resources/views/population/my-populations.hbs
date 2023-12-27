@@ -21,14 +21,14 @@
         </thead>
         <tbody class="table-group-divider">
             {{#each resident}}
-                <tr data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">
-                    <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.Id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.houseId}}</td>
-                    <td>{{countWithFieldValue ../subResident "houseId" this.houseId}}</td>
+                <tr>
+                    <th scope="row" data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">{{sum @index 1}}</th>
+                    <td data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">{{this.Id}}</td>
+                    <td data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">{{this.name}}</td>
+                    <td data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">{{this.houseId}}</td>
+                    <td data-bs-toggle="collapse" data-bs-target="#subTable{{sum @index 1}}" aria-expanded="false" aria-controls="subTable{{sum @index 1}}">{{countWithFieldValue ../subResident "houseId" this.houseId}}</td>
                     <td>
-                        <a href="#" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> haha</a>
+                        <a href="/pop/{{this._id}}/detail" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> Chi tiết</a>
                     </td>
                 </tr>
                 <tr id="subTable{{sum @index 1}}" class="subTable{{sum @index 1}} collapse" data-bs-parent="#main-table">
@@ -66,10 +66,5 @@
 </div>
 
 <script>
-    const additionalFuntion = $('.additionalFuntion')
-
-    additionalFuntion.click(function (e) {
-        e.preventDefault;
-        window.location.href = '/';
-    })
+    
 </script>

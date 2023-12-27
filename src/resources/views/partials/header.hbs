@@ -10,9 +10,9 @@
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="/pop/renter">Nhân Khẩu</a>
             </li>
-            <li class="navbar-nav">
+            {{!-- <li class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/payment/show">Khoản Phí</a>
-            </li>
+            </li> --}}
             <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="/fee/">Các khoản phí</a>
             </li>
@@ -79,7 +79,7 @@
 {{!-- <form name="logout-form" action="me/logout" method="POST"></form> --}}
 
 {{!-- require login --}}
-<div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{!-- <div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -106,9 +106,10 @@
         const ucs = $('.usercases')
         const requireLoginModel = new bootstrap.Modal(document.getElementById('requireLogin'));
         const btnLogin = document.getElementById("btn-login")
+        console.log(loginId)
 
         // Xử phần đăng nhập, đăng xuất và thêm nhân khẩu
-        if (loginId === 'none<') {
+        if (loginId === '<') {
             // Nếu không có ID, ẩn đi phần đăng xuất
             logoutOption.css("display", "none");
             // Loại bỏ thuộc tính style từ phần đăng nhập
@@ -127,12 +128,12 @@
         }
 
         // yêu cầu đăng nhập
-        {{!-- ucs.click(function (event) {
+        ucs.click(function (event) {
             if (loginId === '<') {
                 event.preventDefault()
                 requireLoginModel.show()
             }
-        }) --}}
+        })
 
         // xử lý nút đăng nhập trong phần yêu cầu đăng nhập
         btnLogin.onclick = function () {
@@ -140,7 +141,7 @@
         }
 
         // quản lý nhân khẩu và căn hộ
-        {{!-- if (loginId !== 'admin<') {
+        if (loginId !== 'admin<') {
             // Nếu không có ID là admin, ẩn đi chức năng quản lý
             managePopulationOption.css("display", "none");
             manageAccommodationOption.css("display", "none");
@@ -151,6 +152,6 @@
             manageAccommodationOption.css("display", "");
             manageExpensesOption.css("display", "");
             ucs.css("display", "none");
-        } --}}
+        }
     });
 </script>

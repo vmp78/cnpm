@@ -5,7 +5,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class PopController {
     // [GET] /pop
     show(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // Authentication.distinct('householer')
         //     .then((pop) => res.render('population/my-populations', {
         //         info,
@@ -52,14 +52,14 @@ class PopController {
         const resident = new Resident(req.body);
         resident.save()
             .then(() => {
-                res.redirect('/');
+                res.redirect('/pop/');
             })
             .catch(next);
     }
 
     // [GET] /pop/renter
     renter(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // Authentication.find({ householer: info.householer })
         // Resident.find({ Id: info })
         //     .then((renters) => {
@@ -88,7 +88,7 @@ class PopController {
 
     // [GET] /pop/deleted-pops
     delete(req, res, next) {
-        // var info = req.session.info || 'none'
+        // var info = req.session.info || null
         // Authentication.find({ householer: info.householer })
         //     .then((renters) => {
         //         res.render('population/renter', {
@@ -102,7 +102,7 @@ class PopController {
 
     // [GET] /pop/:id/edit
     edit(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Resident.findById(req.params.id)
             .then((pop) => {
                 res.render('population/edit', {
@@ -113,10 +113,55 @@ class PopController {
             .catch(next)
     }
 
+    // [GET] /:residentId/:householderId/edit
+    edit_2(req, res, next) {
+        var info = req.session.info || null
+        // res.json(req.params)
+        Resident.findById(req.params.residentId)
+            .then((pop) => {
+                res.render('population/edit-2', {
+                    info,
+                    pop: mongooseObject(pop),
+                    householderId: req.params.householderId,
+                })
+            })
+            .catch(next)
+    }
+
     // [PUT] /pop/:id
     update(req, res, next) {
         Resident.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/pop/renter'))
+            .catch(next)
+    }
+
+    // [PUT] /:residentId/:householderId/admin
+    update_2(req, res, next) {
+        // res.json(req.params)
+        var link = '/pop/' + req.params.householderId + '/detail';
+        // res.json(link)
+        Resident.updateOne({ _id: req.params.residentId }, req.body)
+            .then(() => res.redirect(link))
+            .catch(next)
+    }
+
+    // [GET] /pop/:id/detail
+    detail(req, res, next) {
+        var info = req.session.info || null
+        // res.json(req.params)
+        Resident.findById(req.params.id)
+            .then((pop) => {
+                var houseId = pop.houseId
+                Resident.find({ houseId: houseId })
+                    .then((pops) => {
+                        res.render('population/detail', {
+                            info,
+                            pop: multipleMongooseToObject(pops),
+                            _id: req.params.id,
+                        })
+                    })
+                    .catch(next)
+            })
             .catch(next)
     }
 }

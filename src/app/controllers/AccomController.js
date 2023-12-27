@@ -6,7 +6,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class PopController {
     // [GET] /accom/my-accommodations
     show(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Accom.find({ deleted: false })
             .then((accom) => {
                 res.render('accommodation/my-accommodation', {
@@ -19,7 +19,7 @@ class PopController {
 
     // [GET] /accom/create
     create(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
 
         res.render('accommodation/create', { info })
     }
@@ -37,7 +37,7 @@ class PopController {
 
     // [GET] /accom/:id/edit
     edit(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // res.json(req.params)
         Accom.findById(req.params.id)
             .then((accom) => {
@@ -69,7 +69,7 @@ class PopController {
 
     // [GET] /accom/deleted-accom
     bin(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
 
         Accom.find({ deleted: true })
             .then((accom) => {
