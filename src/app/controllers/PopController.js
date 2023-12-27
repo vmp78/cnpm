@@ -5,7 +5,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class PopController {
     // [GET] /pop
     show(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // Authentication.distinct('householer')
         //     .then((pop) => res.render('population/my-populations', {
         //         info,
@@ -52,14 +52,14 @@ class PopController {
         const resident = new Resident(req.body);
         resident.save()
             .then(() => {
-                res.redirect('/');
+                res.redirect('/pop/');
             })
             .catch(next);
     }
 
     // [GET] /pop/renter
     renter(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // Authentication.find({ householer: info.householer })
         // Resident.find({ Id: info })
         //     .then((renters) => {
@@ -88,7 +88,7 @@ class PopController {
 
     // [GET] /pop/deleted-pops
     delete(req, res, next) {
-        // var info = req.session.info || 'none'
+        // var info = req.session.info || null
         // Authentication.find({ householer: info.householer })
         //     .then((renters) => {
         //         res.render('population/renter', {
@@ -102,7 +102,7 @@ class PopController {
 
     // [GET] /pop/:id/edit
     edit(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Resident.findById(req.params.id)
             .then((pop) => {
                 res.render('population/edit', {
@@ -115,7 +115,7 @@ class PopController {
 
     // [GET] /:residentId/:householderId/edit
     edit_2(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // res.json(req.params)
         Resident.findById(req.params.residentId)
             .then((pop) => {
@@ -147,7 +147,7 @@ class PopController {
 
     // [GET] /pop/:id/detail
     detail(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // res.json(req.params)
         Resident.findById(req.params.id)
             .then((pop) => {
