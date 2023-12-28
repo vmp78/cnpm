@@ -10,6 +10,7 @@ const route = require('./routes');
 const db = require('./config/db');
 
 
+
 // const AuthMiddleware = require('./app/middlewares/AuthMiddleware')
 const SomethingMiddleware = require('./app/middlewares/SomethingMiddleware')
 
@@ -54,6 +55,7 @@ app.engine(
         extname: '.hbs',
         helpers: {
             sum: (a, b) => a + b,
+            mul: (a, b) => a * b,
             sortable: (field, sort) => {
                 const sortType = field === sort.column ? sort.type : 'default'
 
@@ -99,6 +101,7 @@ app.engine(
     }),
 );
 
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
@@ -111,3 +114,4 @@ app.listen(port, () => {
 
 // connect to db
 db.connect();
+
