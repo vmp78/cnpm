@@ -26,13 +26,30 @@ class PaymentController {
             .catch(next)
     }
 
-    // pay(req, res, next) {
-    //     var info = req.session.info || 'none'
-    //     Payment.find()
-    //         .then((payment) => {
+    edit(req, res, next) {
+        var info = req.session.info || 'none'
+        Payment.findById(req.params.id)
+            .then((payment) => {
+                res.render('payment/edit', {
+                    payment: mongooseObject(payment),
+                    info,
+                })
+            })
+            .catch(next)
+    }
 
-    //         })
-    //         .catch(next)
-    // }
+    restore(req, res, next) {
+        Payment.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+
+    update(req, res, next) {
+        Payment.updateOne({ _id: req.params.id }, req.body)
+            .then(async () => {
+                res.redirect('/payment/show');
+            })
+            .catch(next);
+    }
 }
 module.exports = new PaymentController();

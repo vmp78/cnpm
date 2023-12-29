@@ -1,0 +1,25 @@
+<div class="mt-4">
+    <h3>Chỉnh sửa khoản phí {{fee.name}}</h3>
+    <a href="/payment/show"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
+    <form action="/payment/{{payment._id}}?_method=PUT" method="POST">
+       <div class="mb-3">
+            <label for="description" class="form-label">Tiền đã nộp</label>
+            <input type="text" class="form-control" id="paid" name="paid" value="{{payment.totalPrice}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Ngày nộp tiền</label>
+            <input type="date" class="form-control" id="payDate" name="payDate" value="{{payment.payDate}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Trạng thái</label>
+            <select class="form-select" name="status" aria-label="Default select example">
+                <option value="{{payment.status}}">Trạng thái</option>
+                <option value="false">Chưa nộp</option>
+                <option value="true">Đã nộp</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">ADD</button>
+    </form>
+</div>

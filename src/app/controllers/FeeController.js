@@ -46,6 +46,7 @@ class FeeController {
                         feeId: fee.feeId,
                         totalPrice: fee.rate * accom.area,
                         status: false,
+                        paid: 0,
                     };
 
                     const payment = new Payment(paymentData);
@@ -103,7 +104,6 @@ class FeeController {
                         houseId: accom.houseId,
                         feeId: fee.feeId,
                         totalPrice: fee.rate * accom.area,
-                        status: false,
                     };
 
                     const payment = await Payment.findOneAndUpdate(

@@ -10,7 +10,8 @@ const Payment = new Schema({
     feeId: { type: String, required: true },
     totalPrice: { type: Number, required: true },
     status: { type: Boolean, required: true },
-    endTime: {type: String, required: false},
+    paid: {type: Number, required: false},
+    payDate: {typr: String},
 });
 
 module.exports = mongoose.model('Payment', Payment);
