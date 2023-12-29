@@ -8,6 +8,7 @@
         <thead class="table-active">
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Mã khoản phí</th>
                 <th scope="col">Tên khoản phí</th>
                 <th scope="col">Đơn giá</th>
                 <th scope="col">Loại khoản phí</th>
@@ -21,6 +22,7 @@
             {{#each fee}}
             <tr>
                 <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.feeId}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.rate}}</td>
                 <td>{{this.type}}</td>

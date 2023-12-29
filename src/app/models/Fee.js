@@ -7,6 +7,7 @@ const Payment = require('./Payment');
 const Schema = mongoose.Schema;
 
 const Fee = new Schema({
+    feeId: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true },
     rate: { type: Number, required: true },
     time: {

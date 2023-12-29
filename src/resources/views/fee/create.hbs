@@ -3,6 +3,10 @@
     <a href="/fee/show"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
     <form action="/fee/store" method="post">
         <div class="mb-3">
+            <label for="description" class="form-label">Mã khoản phí</label>
+            <input type="text" class="form-control" id="feeId" name="feeId" required>
+        </div>
+        <div class="mb-3">
             <label for="description" class="form-label">Tên khoản phí</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>

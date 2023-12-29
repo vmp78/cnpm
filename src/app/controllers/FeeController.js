@@ -43,7 +43,7 @@ class FeeController {
                 const paymentPromises = accommodations.map(async (accom) => {
                     const paymentData = {
                         houseId: accom.houseId,
-                        name: fee.name,
+                        feeId: fee.feeId,
                         totalPrice: fee.rate * accom.area,
                         status: false,
                     };
@@ -101,13 +101,13 @@ class FeeController {
                 const paymentPromises = accommodations.map(async (accom) => {
                     const paymentData = {
                         houseId: accom.houseId,
-                        name: fee.name,
+                        feeId: fee.feeId,
                         totalPrice: fee.rate * accom.area,
                         status: false,
                     };
 
                     const payment = await Payment.findOneAndUpdate(
-                        { houseId: accom.houseId, name: fee.name },
+                        { houseId: accom.houseId, feeId: fee.feeId },
                         paymentData,
                         { upsert: true, new: true }
                     );
@@ -127,7 +127,7 @@ class FeeController {
                 const accommodations = await Accom.find();
 
                 const paymentPromises = accommodations.map(async (accom) => {
-                    await Payment.findOneAndDelete({ houseId: accom.houseId, name: fee.name });
+                    await Payment.findOneAndDelete({ houseId: accom.houseId, feeId: fee.feeId });
                 });
 
                 await Promise.all(paymentPromises);

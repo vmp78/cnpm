@@ -1,6 +1,8 @@
 // const session = require('express-session');
-const Accom = require('../models/Accommodation')
-const Resident = require('../models/Resident')
+const Accom = require('../models/Accommodation');
+const Resident = require('../models/Resident');
+const Fee = require('../models/Fee');
+const Payment = require('../models/Payment');
 const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoose');
 
 class PopController {
@@ -51,13 +53,13 @@ class PopController {
     }
 
     // [PUT] /accom/:id
-    update(req, res, next) {
-        // res.json(req.params)
-        // res.json(req.body)
-        Accom.updateOne({ _id: req.params.id }, req.body)
-            .then(() => res.redirect('my-accommodations'))
-            .catch(next)
-    }
+    // update(req, res, next) {
+    //     // res.json(req.params)
+    //     // res.json(req.body)
+    //     Accom.updateOne({ _id: req.params.id }, req.body)
+    //         .then(() => res.redirect('my-accommodations'))
+    //         .catch(next)
+    // }
 
     // [DELETE] /accom/:id
     delete(req, res, next) {
@@ -90,11 +92,57 @@ class PopController {
 
 
     // [DELETE] /accom/:id/permanent
-    destroy(req, res, next) {
-        Accom.deleteOne({ _id: req.params.id })
-            .then(() => res.redirect('back'))
-            .catch(next)
-    }
+//     destroy(req, res, next) {
+//         Accom.deleteOne({ _id: req.params.id })
+//             .then(() => res.redirect('back'))
+//             .catch(next)
+//     }
+// }
+update(req, res, next) {
+    Accom.updateOne({ _id: req.params.id }, req.body)
+        .then(async () => {
+            // Update Payment when Fee is updated
+            const accom = await Accom.findById(req.params.id);
+            const fee = await Fee.find();
+
+            const paymentPromises = fee.map(async (fee) => {
+                const paymentData = {
+                    houseId: accom.houseId,
+                    feeId: fee.feeId,
+                    totalPrice: fee.rate * accom.area,
+                    status: false,
+                };
+
+                const payment = await Payment.findOneAndUpdate(
+                    { houseId: accom.houseId, feeId: fee.feeId },
+                    paymentData,
+                    { upsert: true, new: true }
+                );
+            });
+
+            await Promise.all(paymentPromises);
+
+            res.redirect('/fee/show');
+        })
+        .catch(next);
+}
+
+destroy(req, res, next) {
+    Accom.findByIdAndDelete(req.params.id)
+        .then(async (accom) => {
+            // Delete Payment when Fee is deleted
+            const fee = await Fee.find();
+
+            const paymentPromises = fee.map(async (fee) => {
+                await Payment.findOneAndDelete({ houseId: accom.houseId, feeId: fee.feeId });
+            });
+
+            await Promise.all(paymentPromises);
+
+            res.redirect('back');
+        })
+        .catch(next);
+}
 }
 
 module.exports = new PopController();
