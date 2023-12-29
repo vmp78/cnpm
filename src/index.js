@@ -86,6 +86,7 @@ app.engine(
                     return false;
                 }
             },
+            
             countWithFieldValue: (array, fieldName, fieldValue) => {
                 let count = 0;
 
@@ -97,6 +98,9 @@ app.engine(
                 
                 return count+1;
             },
+            formatNumber: (number) => {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
         },
     }),
 );

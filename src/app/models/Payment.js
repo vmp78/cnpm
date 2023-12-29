@@ -11,7 +11,8 @@ const Payment = new Schema({
     totalPrice: { type: Number, required: true },
     status: { type: Boolean, required: true },
     paid: {type: Number, required: false},
-    payDate: {typr: String},
+    payDate: {type: String},
+    note: {type: String},
 });
 
 module.exports = mongoose.model('Payment', Payment);

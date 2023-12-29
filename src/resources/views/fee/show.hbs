@@ -4,13 +4,25 @@
             <i class="bi bi-plus-circle-dotted"></i>
             Thêm khoản phí
         </a></button>
+    <div class="mb-3">
+        <label for="feeNameFilter1" class="form-label">Tên khoản phí:</label>
+        <input type="text" class="form-control" id="feeNameFilter1">
+    </div>
+    <div class="mb-3">
+        <label for="typeFilter" class="form-label">Loại khoản phí:</label>
+        <select class="form-select" id="typeFilter">
+            <option value="">Tất cả</option>
+            <option value="Bắt buộc">Bắt buộc</option>
+            <option value="Tự nguyện">Tự nguyện</option>
+        </select>
+    </div>
     <table class="table mt-2">
         <thead class="table-active">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Mã khoản phí</th>
                 <th scope="col">Tên khoản phí</th>
-                <th scope="col">Đơn giá</th>
+                <th scope="col">Đơn giá(VNĐ/m^2)</th>
                 <th scope="col">Loại khoản phí</th>
                 <th scope="col">Thời gian thu</th>
                 <th scope="col">Hạn đóng</th>
@@ -24,7 +36,7 @@
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.feeId}}</td>
                 <td>{{this.name}}</td>
-                <td>{{this.rate}}</td>
+                <td>{{formatNumber this.rate}}</td>
                 <td>{{this.type}}</td>
                 <td>{{this.time}}</td>
                 <td>{{this.deadline}}</td>
@@ -85,6 +97,36 @@
             {{!-- alert(feeId) --}}
             deleteForm.action = '/fee/' + feeId + '/permanent?_method=DELETE'
             deleteForm.submit()
+        }
+        
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var feeNameFilter1 = document.getElementById("feeNameFilter1");
+        var typeFilter = document.getElementById("typeFilter");
+        var rows = document.querySelectorAll("tbody tr");
+
+        feeNameFilter1.addEventListener("input", filterTable);
+        typeFilter.addEventListener("change", filterTable);
+        function filterTable() {
+            var feeNameValue = feeNameFilter1.value.toLowerCase();
+            var typeValue = typeFilter.value;
+
+            // Loop through each row and hide/show based on filter criteria
+            rows.forEach(function (row) {
+                var feeName = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                var type = row.querySelector("td:nth-child(5)").textContent; // Assuming status is in the 9th column
+
+                var feeNameMatch = feeName.includes(feeNameValue);
+                var typeMatch = (typeValue === "" || type === typeValue);
+
+                if (feeNameMatch && typeMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         }
     });
 </script>

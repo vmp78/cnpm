@@ -19,7 +19,10 @@
                 <option value="true">Đã nộp</option>
             </select>
         </div>
-
+        <div class="mb-3">
+            <label for="description" class="form-label">Ghi chú</label>
+            <input type="text" class="form-control" id="note" name="note" value="{{payment.note}}" required>
+        </div>
         <button type="submit" class="btn btn-primary">ADD</button>
     </form>
 </div>

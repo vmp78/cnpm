@@ -1,9 +1,27 @@
 <div class="mt-4">
-    <h2>Các khoản phí</h2>
+    <h2>Thống kê các khoản phí</h2>
+    <div class="mb-3">
+        <label for="apartmentCodeFilter" class="form-label">Mã căn hộ:</label>
+        <input type="text" class="form-control" id="apartmentCodeFilter">
+    </div>
+
+    <div class="mb-3">
+        <label for="feeNameFilter" class="form-label">Tên khoản phí:</label>
+        <input type="text" class="form-control" id="feeNameFilter">
+    </div>
+    <div class="mb-3">
+        <label for="statusFilter" class="form-label">Trạng thái:</label>
+        <select class="form-select" id="statusFilter">
+            <option value="">Tất cả</option>
+            <option value="Đã nộp">Đã nộp</option>
+            <option value="Chưa nộp">Chưa nộp</option>
+        </select>
+    </div>
     <table class="table mt-2">
         <thead class="table-active">
             <tr>
-                <th scope="col">Mã căn hộ</th>                
+                <th scope="col">#</th>
+                <th scope="col">Mã căn hộ</th>
                 {{!-- <th scope="col">Mã khoản phí</th> --}}
                 <th scope="col">Tên khoản phí</th>
                 {{!-- <th scope="col">Đơn giá</th>
@@ -11,7 +29,7 @@
                 <th scope="col">Tiền phải nộp</th>
                 <th scope="col">Tiền đã nộp</th>
                 <th scope="col">Loại khoản phí</th>
-                <th scope="col">Thời gian thu</th>
+                {{!-- <th scope="col">Thời gian thu</th> --}}
                 <th scope="col">Hạn đóng</th>
                 <th scope="col">Ngày nộp tiền</th>
                 <th scope="col">Trạng thái</th>
@@ -22,43 +40,40 @@
         <tbody class="table-group-divider">
             {{#each payment}}
             <tr>
-                <th  scope="row">{{this.houseId}}</th>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.houseId}}</td>
                 {{!-- <td>{{this.feeId}}</td> --}}
                 {{#each ../fee}}
-                    {{#if (isEqual this.feeId ../this.feeId)}}
-                        <td>{{this.name}}</td>
-                        {{!-- <td>{{this.rate}}</td> --}}
-                    {{/if}}
+                {{#if (isEqual this.feeId ../this.feeId)}}
+                <td>{{this.name}}</td>
+                {{!-- <td>{{this.rate}}</td> --}}
+                {{/if}}
                 {{/each}}
                 {{!-- {{#each ../accom}}
-                    {{#if (isEqual this.houseId ../this.houseId)}}
-                        <td>{{this.area}}</td>
-                    {{/if}}
+                {{#if (isEqual this.houseId ../this.houseId)}}
+                <td>{{this.area}}</td>
+                {{/if}}
                 {{/each}} --}}
-                <td>{{this.totalPrice}} VNĐ</td>
+                <td>{{formatNumber this.totalPrice}} VNĐ</td>
                 {{#if (isEqual this.paid 0)}}
-                    <td>0 VNĐ</td>
+                <td>0 VNĐ</td>
                 {{else}}
-                    <td>{{this.paid}} VNĐ</td>
+                <td>{{formatNumber this.paid}} VNĐ</td>
                 {{/if}}
                 {{#each ../fee}}
-                    {{#if (isEqual this.feeId ../this.feeId)}}
-                        <td>{{this.type}}</td>
-                        <td>{{this.time}}</td>
-                        <td>{{this.deadline}}</td>
-                    {{/if}}
+                {{#if (isEqual this.feeId ../this.feeId)}}
+                <td>{{this.type}}</td>
+                {{!-- <td>{{this.time}}</td> --}}
+                <td>{{this.deadline}}</td>
+                {{/if}}
                 {{/each}}
                 <td>{{this.payDate}}</td>
                 {{#if (isEqual this.status true)}}
-                    <td>Đã nộp</td> 
+                <td>Đã nộp</td>
                 {{else}}
-                    <td>Chưa nộp</td>
+                <td>Chưa nộp</td>
                 {{/if}}
-                {{#each ../fee}}
-                    {{#if (isEqual this.feeId ../this.feeId)}}
-                        <td>{{this.note}}</td>
-                    {{/if}}
-                {{/each}}
+                <td>{{this.note}}</td>
                 <td>
                     <a href="/payment/{{this._id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
                 </td>
@@ -73,3 +88,44 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Get input and select elements
+        var apartmentCodeFilter = document.getElementById("apartmentCodeFilter");
+        var feeNameFilter = document.getElementById("feeNameFilter");
+        var statusFilter = document.getElementById("statusFilter");
+
+        // Get table rows
+        var rows = document.querySelectorAll("tbody tr");
+
+        // Add event listeners to input fields and select element
+        apartmentCodeFilter.addEventListener("input", filterTable);
+        feeNameFilter.addEventListener("input", filterTable);
+        statusFilter.addEventListener("change", filterTable);
+
+        function filterTable() {
+            var apartmentCodeValue = apartmentCodeFilter.value.toLowerCase();
+            var feeNameValue = feeNameFilter.value.toLowerCase();
+            var statusValue = statusFilter.value;
+
+            // Loop through each row and hide/show based on filter criteria
+            rows.forEach(function (row) {
+                var apartmentCode = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                var feeName = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                var status = row.querySelector("td:nth-child(9)").textContent; // Assuming status is in the 9th column
+
+                var apartmentCodeMatch = apartmentCode.includes(apartmentCodeValue);
+                var feeNameMatch = feeName.includes(feeNameValue);
+                var statusMatch = (statusValue === "" || status === statusValue);
+
+                if (apartmentCodeMatch && feeNameMatch && statusMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    });
+</script>
