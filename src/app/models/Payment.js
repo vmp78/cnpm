@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 //const slug = require('mongoose-slug-generator');
 // const slug = require('mongoose-slug-plugin');
 
@@ -9,6 +10,7 @@ const Payment = new Schema({
     feeId: { type: String, required: true },
     totalPrice: { type: Number, required: true },
     status: { type: Boolean, required: true },
+    endTime: {type: String, required: false},
 });
 
 module.exports = mongoose.model('Payment', Payment);
