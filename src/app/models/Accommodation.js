@@ -16,7 +16,7 @@ const Accom = new Schema({
         type: Date,
         default: null,
     },
-    owned: { type: Boolean, required: true},
+    owned: { type: Boolean, required: true, default: false},
 });
 
 Accom.statics.delete = function(accomId) {
