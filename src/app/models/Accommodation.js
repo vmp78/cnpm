@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 
 const Accom = new Schema({
     houseId: { type: String, required: true , unique: true },
-    householder: { type: String },
     area: { type: Number, required: true },
     parkingLot: { type: String },
     deleted: {
@@ -17,6 +16,7 @@ const Accom = new Schema({
         type: Date,
         default: null,
     },
+    owned: { type: Boolean, required: true},
 });
 
 Accom.statics.delete = function(accomId) {

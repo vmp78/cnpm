@@ -122,7 +122,7 @@ update(req, res, next) {
 
             await Promise.all(paymentPromises);
 
-            res.redirect('/fee/show');
+            res.redirect('my-accommodations');
         })
         .catch(next);
 }

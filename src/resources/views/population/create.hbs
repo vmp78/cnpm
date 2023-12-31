@@ -12,15 +12,39 @@
             <label for="description" class="form-label">Mật khẩu</label>
             <input type="text" class="form-control" id="pass" name="pass">
         </div> --}}
-        
-        {{!-- <div class="mb-3">
-            <label for="description" class="form-label">Id</label>
-            <input type="text" class="form-control" id="Id" name="Id" required>
-        </div> --}}
 
         <div class="mb-3">
-            <label for="description" class="form-label">Họ và tên</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="description" class="form-label">Số căn cước công dân</label>
+                    <input type="text" class="form-control" id="Id" name="Id" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="houseId" class="form-label">Mã căn hộ</label>
+                    <input type="text" class="form-control" id="houseId" name="houseId" value="{{houseId}}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="birthday" class="form-label">Ngày sinh</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="gender" class="form-label">Giới tính</label>
+                    <select class="form-select" name="gender" aria-label="Default select example">
+                        <option value="Nam" selected>Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         {{!-- <div class="mb-3">
@@ -37,22 +61,6 @@
             </select>
         </div> --}}
 
-        <div class="mb-3">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="age" class="form-label">Tuổi</label>
-                    <input type="text" class="form-control" id="age" name="age" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="gender" class="form-label">Giới tính</label>
-                    <select class="form-select" name="gender" aria-label="Default select example">
-                        <option value="Nam" selected>Nam</option>
-                        <option value="Nữ">Nữ</option>
-                        <option value="Khác">Khác</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
         {{!-- <div class="mb-3">
             <label for="description" class="form-label">Số điện thoại</label>
@@ -81,7 +89,7 @@
             <label for="description" class="form-label">Mã căn hộ</label>
             <input type="text" class="form-control" id="houseId" name="houseId" required>
         </div>
-        
+
         <div class="mb-3">
             <label for="description" class="form-label">Là chủ hộ</label>
             <select class="form-select" name="isHouseholder" aria-label="Default select example">
@@ -91,21 +99,30 @@
         </div> --}}
 
         <div class="mb-3">
-            <div class="row">
-                <div class="col-md-9">
-                    <label for="houseId" class="form-label">Mã căn hộ</label>
-                    <input type="text" class="form-control" id="houseId" name="houseId" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="isHouseholder" class="form-label">Là chủ hộ</label>
-                    <select class="form-select" name="isHouseholder" aria-label="Default select example">
-                        <option value="false" selected>Không</option>
-                        <option value="true">Có</option>
-                    </select>
-                </div>
-            </div>
+            <label for="relation" class="form-label">Quan hệ với chủ hộ</label>
+            <select class="form-select" name="relation" id="relationSelect" aria-label="Default select example">
+                <option value="Chủ hộ">Chủ hộ</option>
+                <option value="Vợ">Vợ</option>
+                <option value="Chồng">Chồng</option>
+                <option value="Bố">Bố</option>
+                <option value="Mẹ">Mẹ</option>
+                <option value="Con trai">Con trai</option>
+                <option value="Con gái">Con gái</option>
+                <option value="Họ hàng">Họ hàng</option>
+                <option value="Khách thuê trọ">Khách thuê trọ</option>
+                <option value="Khác">Khác</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="relation" class="form-label">Thông tin lưu trú</label>
+            <select class="form-select" name="statusResident" aria-label="Default select example">
+                <option value="Thường trú" selected>Thường trú</option>
+                <option value="Tạm trú">Tạm trú</option>
+                <option value="Tạm vắng">Tạm vắng</option>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">ADD</button>
     </form>
 </div>
+

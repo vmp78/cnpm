@@ -3,7 +3,7 @@ const router = express.Router();
 
 const popController = require('../app/controllers/PopController');
 
-router.get('/create', popController.create);
+router.get('/:id/create', popController.create); //
 router.post('/store', popController.store);
 router.get('/renter', popController.renter);
 router.get('/deleted-pops', popController.delete);
@@ -13,5 +13,6 @@ router.get('/:id/detail', popController.detail);
 router.put('/:id', popController.update);
 router.put('/:residentId/:householderId/admin', popController.update_2);
 router.get('/', popController.show);
+router.delete('/:id/permanent', popController.delete);
 
 module.exports = router;

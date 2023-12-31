@@ -54,6 +54,7 @@ app.engine(
     hbs.engine({
         extname: '.hbs',
         helpers: {
+            set0: (a) => a=0,
             sum: (a, b) => a + b,
             mul: (a, b) => a * b,
             sortable: (field, sort) => {
@@ -86,7 +87,13 @@ app.engine(
                     return false;
                 }
             },
-            
+            neq: (value1, value2) => {
+                if (value1 === value2) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
             countWithFieldValue: (array, fieldName, fieldValue) => {
                 let count = 0;
 
@@ -96,11 +103,11 @@ app.engine(
                     }
                   });
                 
-                return count+1;
+                return count;
             },
             formatNumber: (number) => {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+            },
         },
     }),
 );

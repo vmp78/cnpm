@@ -1,4 +1,4 @@
-<div class="mt-4" style="color:#ffff">
+<div class="mt-4">
     <h3>Cập nhật căn hộ</h3>
     <a href="/accom/my-accommodations"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
     <form action="/accom/{{accom._id}}?_method=PUT" method="POST">
@@ -8,13 +8,17 @@
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Mã chủ hộ</label>
-            <input type="text" class="form-control" value="{{accom.householder}}" id="householder" name="householder">
+            <label for="description" class="form-label">Diện tích</label>
+            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Diện tích</label>
-            <input type="text" class="form-control" value="{{accom.area}}" id="area" name="area">
+            <label for="description" class="form-label">Tình trạng</label>
+            <select class="form-select" name="owned" aria-label="Default select example">
+                <option value="{{this.owned}}">Tình trạng</option>
+                <option value="false">Chưa có chủ</option>
+                <option value="true">Đã có chủ</option>
+            </select>
         </div>
 
         <div class="mb-3">

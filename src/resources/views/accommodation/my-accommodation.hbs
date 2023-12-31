@@ -13,7 +13,7 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Mã căn hộ</th>
-            <th scope="col">Chủ hộ</th>
+            <th scope="col">Tình trạng</th>
             <th scope="col">Diện tích (m^2)</th>
             <th scope="col">Gửi xe</th>
             <th scope="col"></th>
@@ -24,7 +24,11 @@
                 <tr>
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.houseId}}</td>
-                    <td>{{this.householder}}</td>
+                    {{#if (isEqual this.owned true)}}
+                        <td>Đã có chủ</td>
+                    {{else}}
+                        <td>Chưa có chủ</td>
+                    {{/if}}
                     <td>{{this.area}}</td>
                     <td>{{this.parkingLot}}</td>
                     <td>

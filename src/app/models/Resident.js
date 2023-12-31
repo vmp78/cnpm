@@ -6,14 +6,15 @@ const unidecode = require('unidecode');
 const Schema = mongoose.Schema;
 
 const Resident = new Schema({
-    Id: { type: String },
+    Id: { type: String, required: true },
     name: { type: String, required: true },
-    age: { type: String, required: true },
+    birthday: { type: String, required: true },
     gender: { type: String, required: true },
     phoneNumber : { type: String },
     email: { type: String },
-    houseId: { type: String, required: true },
-    isHouseholder: { type: Boolean, required: true },
+    houseId: { type: String, required: true},
+    relation: {type: String, required: true},
+    statusResident: {type: String, required: true},
 });
 
 Resident.pre('save', function(next) {

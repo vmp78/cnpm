@@ -1,56 +1,48 @@
 const Authentication = require('../models/Authentication');
 const Resident = require('../models/Resident');
+const Accom = require('../models/Accommodation');
 const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoose');
 
 class PopController {
     // [GET] /pop
     show(req, res, next) {
         var info = req.session.info || null
-        // Authentication.distinct('householer')
-        //     .then((pop) => res.render('population/my-populations', {
-        //         info,
-        //         pop,
-        //     }))
-        //     .catch(next)
-
-        // Resident.find({ isHouseholder: true })
-        // .then((resident) => {
-        //     // res.json(resident)
-        //     res.render('population/my-populations', {
-        //         resident: multipleMongooseToObject(resident),
-        //         info,
-        //     })
-        // })
-        // .catch(next)
-
-        Resident.find({ isHouseholder: true })
-        .then((resident) => {
-            // res.json(resident)
-            Resident.find({ isHouseholder: false })
-                .then((subResident) => {
-                    // res.json(subResident)
-                    res.render('population/my-populations', {
-                        resident: multipleMongooseToObject(resident),
-                        subResident: multipleMongooseToObject(subResident),
-                        info,
+        Accom.find({})
+            .then((accom) => {
+                Resident.find()
+                    .then((resident) => {
+                        // res.json(subResident)
+                        res.render('population/my-populations', {
+                            accom: multipleMongooseToObject(accom),
+                            resident: multipleMongooseToObject(resident),
+                            info,
+                        })
                     })
-                })
-                .catch(next)
-        })
+                    .catch(next)
+            })
         .catch(next)
     }
     
+
     // [GET] /pop/create
     create(req, res, next) {
-        res.render('population/create')
+        // Lấy giá trị houseId từ tham số động trong URL
+        const houseId = req.params.id;
+    
+        // Tiếp tục xử lý hoặc trả về phản hồi
+        res.render('population/create', { houseId: houseId });
     }
+    
 
     // [GET] /pop/store
     store(req, res, next) {
-        // const auth = new Authentication(req.body);
-        // auth.save()
         const resident = new Resident(req.body);
         resident.save()
+            .then((pop) => {
+                if (pop.relation === 'Chủ hộ') {
+                    return Accom.updateMany({ houseId: pop.houseId }, { owned: true }).exec();
+                }
+            })
             .then(() => {
                 res.redirect('/pop/');
             })
@@ -87,17 +79,22 @@ class PopController {
     }
 
     // [GET] /pop/deleted-pops
+    
     delete(req, res, next) {
-        // var info = req.session.info || null
-        // Authentication.find({ householer: info.householer })
-        //     .then((renters) => {
-        //         res.render('population/renter', {
-        //             info: info,
-        //             renters: multipleMongooseToObject(renters),
-        //         })
-        //     })
-        //     .catch(next)
-        res.render('population/deleted-pops')
+            Resident.findOne({ _id: req.params.id }) //
+            .then((pop) => {
+                console.log(pop);
+                if (pop.relation === 'Chủ hộ') {
+                    return Accom.updateMany({ houseId: pop.houseId }, { owned: false }).exec();
+                }
+            })
+            .then(() => {
+                return Resident.findOneAndDelete({ _id: req.params.id }).exec();
+            })
+            .then(() => {
+                res.redirect('back');
+            })
+            .catch(next);
     }
 
     // [GET] /pop/:id/edit
@@ -147,16 +144,16 @@ class PopController {
 
     // [GET] /pop/:id/detail
     detail(req, res, next) {
-        var info = req.session.info || null
+        var info = req.session.info || 'none'
         // res.json(req.params)
-        Resident.findById(req.params.id)
-            .then((pop) => {
-                var houseId = pop.houseId
-                Resident.find({ houseId: houseId })
-                    .then((pops) => {
+        Accom.findById(req.params.id)
+            .then((accom) => {
+                Resident.find({ houseId: accom.houseId })
+                    .then((resident) => {
                         res.render('population/detail', {
                             info,
-                            pop: multipleMongooseToObject(pops),
+                            accom: mongooseObject(accom),
+                            resident: multipleMongooseToObject(resident),
                             _id: req.params.id,
                         })
                     })
