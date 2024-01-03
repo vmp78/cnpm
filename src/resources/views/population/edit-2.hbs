@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <h3>Cập nhật dân cư {{householderId}} {{pop._id }}</h3>
+    <h3>Cập nhật dân cư {{householderId}} {{pop._id}}</h3>
     <a href="/pop/{{pop.houseId}}/detail"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
     <form action="/pop/{{pop._id}}/admin?_method=PUT" method="POST">
         <div class="mb-3">
@@ -140,6 +140,7 @@
         const staus = document.getElementById('statusResident');
         const btnSave = document.getElementById('btn-save');
         var relationModal = new bootstrap.Modal(document.getElementById('relation-alert'));
+        let relationValue;
 
         for (var i = 0; i < gender.options.length; i++) {
             var option = gender.options[i];
@@ -167,8 +168,12 @@
         }
 
         //
+        relation.addEventListener('change', function() {
+            relationValue = relation.value;
+        });
         btnSave.onclick = function (e) {
-            if ("{{householderId}}" !== "{{pop._id }}" && "{{householderId}}" !== "") {
+            // với điều kiện lựa chọn trường realation là chủ hộ, và đã tồn tại 1 chủ hộ khác 
+            if (relationValue === 'Chủ hộ' && "{{householderId}}" !== "{{pop._id}}" && "{{householderId}}" !== "") {
                 e.preventDefault();
                 relationModal.show();
             }

@@ -5,7 +5,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 
 class PaymentController {
     show(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Payment.find()
             .then((payment) => {
                 Accom.find()
@@ -27,7 +27,7 @@ class PaymentController {
     }
 
     edit(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Payment.findById(req.params.id)
             .then((payment) => {
                 res.render('payment/edit', {

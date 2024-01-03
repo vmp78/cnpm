@@ -125,9 +125,8 @@ class PopController {
                     relation: "Chủ hộ",
                 })
                     .then((householder) => {
-                        if (householder !== null) {
-                            householderId=householder._id;
-                        }
+                        if (householder !== null)
+                        householderId=householder._id
                         res.render('population/edit-2', {
                             info,
                             pop: mongooseObject(pop),

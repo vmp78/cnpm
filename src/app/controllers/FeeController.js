@@ -7,7 +7,7 @@ const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoo
 class FeeController {
     // [GET] /fee/show
     show(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Fee.find()
             .then((fee) => {
                 res.render('fee/show', {
@@ -19,7 +19,7 @@ class FeeController {
     }
 
     create(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         res.render('fee/create', { info })
     }
 
@@ -62,7 +62,7 @@ class FeeController {
 
     // [GET] /accom/:id/edit
     edit(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         Fee.findById(req.params.id)
             .then((fee) => {
                 res.render('fee/edit', {

@@ -7,9 +7,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <li class="navbar-nav">
+            {{!-- <li class="navbar-nav">
                 <a class="nav-link active usercases" aria-current="page" href="/pop/renter">Nhân Khẩu</a>
-            </li>
+            </li> --}}
             {{!-- <li class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/payment/show">Khoản Phí</a>
             </li> --}}
@@ -17,13 +17,13 @@
                 <a class="nav-link active usercases" aria-current="page" href="/payment/show">Thông kê phí</a>
             </li>
             <li class="navbar-nav">
-                <a class="nav-link active manage-expenses" href="/fee/show">Quản lý các khoản phí</a>
+                <a class="nav-link active manage-expenses usercases" href="/fee/show">Quản lý các khoản phí</a>
             </li>
             <li class="navbar-nav">
-                <a class="nav-link active manage-population" href="/pop/">Quản lý nhân khẩu</a>
+                <a class="nav-link active manage-population usercases" href="/pop/">Quản lý nhân khẩu</a>
             </li>
             <li class="navbar-nav">
-                <a class="nav-link active manage-accommodation" href="/accom/my-accommodations">Quản lý căn hộ</a>
+                <a class="nav-link active manage-accommodation usercases" href="/accom/my-accommodations">Quản lý căn hộ</a>
             </li>
             {{!-- <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -76,7 +76,7 @@
 {{!-- <form name="logout-form" action="me/logout" method="POST"></form> --}}
 
 {{!-- require login --}}
-{{!-- <div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="requireLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -125,12 +125,12 @@
         }
 
         // yêu cầu đăng nhập
-        ucs.click(function (event) {
+        {{!-- ucs.click(function (event) {
             if (loginId === '<') {
                 event.preventDefault()
                 requireLoginModel.show()
             }
-        })
+        }) --}}
 
         // xử lý nút đăng nhập trong phần yêu cầu đăng nhập
         btnLogin.onclick = function () {
@@ -138,7 +138,7 @@
         }
 
         // quản lý nhân khẩu và căn hộ
-        if (loginId !== 'admin<') {
+        {{!-- if (loginId !== 'admin<') {
             // Nếu không có ID là admin, ẩn đi chức năng quản lý
             managePopulationOption.css("display", "none");
             manageAccommodationOption.css("display", "none");
@@ -149,6 +149,6 @@
             manageAccommodationOption.css("display", "");
             manageExpensesOption.css("display", "");
             ucs.css("display", "none");
-        }
+        } --}}
     });
 </script>
