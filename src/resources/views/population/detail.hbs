@@ -1,7 +1,7 @@
 <div class="mt-4">
     <h2>THÔNG TIN CHI TIẾT</h2>
     <a href="/pop/"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>    
-    <div class="btn btn-light"><a href="/pop/{{accom.houseId}}/create" >
+    <div class="btn btn-light"><a href="/pop/{{houseId}}/create">
         <i class="bi bi-plus-circle-dotted"></i>
         Thêm nhân khẩu
     </a></div>
@@ -33,7 +33,7 @@
                     <td>{{this.relation}}</td>
                     <td>{{this.statusResident}}</td>
                     <td>
-                        <a href="/pop/{{this._id}}/{{../_id}}/edit" class="btn btn-warning">Chỉnh sửa</a>
+                        <a href="/pop/{{this._id}}/edit-2" class="btn btn-warning">Chỉnh sửa</a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-pop">Xoá</a>
                     </td>
                 </tr>

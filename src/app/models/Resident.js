@@ -17,10 +17,10 @@ const Resident = new Schema({
     statusResident: {type: String, required: true},
 });
 
-Resident.pre('save', function(next) {
-    this.Id = unidecode(this.name).toLowerCase().replace(/\s+/g, '').toLowerCase().replace(/\s+/g, '');
+// Resident.pre('save', function(next) {
+//     this.Id = unidecode(this.name).toLowerCase().replace(/\s+/g, '').toLowerCase().replace(/\s+/g, '');
 
-    next();
-});
+//     next();
+// });
 
 module.exports = mongoose.model('Resident', Resident);

@@ -30,21 +30,24 @@ class PopController {
         const houseId = req.params.id;
     
         // Tiếp tục xử lý hoặc trả về phản hồi
-        res.render('population/create', { houseId: houseId });
+        res.render('population/create', { houseId });
     }
     
 
     // [GET] /pop/store
     store(req, res, next) {
         const resident = new Resident(req.body);
+        let dirHouseId;
         resident.save()
             .then((pop) => {
+                dirHouseId = pop.houseId
                 if (pop.relation === 'Chủ hộ') {
-                    return Accom.updateMany({ houseId: pop.houseId }, { owned: true }).exec();
+                    return Accom.updateOne({ houseId: pop.houseId }, { owned: true }).exec();
                 }
             })
             .then(() => {
-                res.redirect('/pop/');
+                var direct = '/pop/' + dirHouseId + '/detail';
+                res.redirect(direct);
             })
             .catch(next);
     }
@@ -110,17 +113,28 @@ class PopController {
             .catch(next)
     }
 
-    // [GET] /:residentId/:householderId/edit
+    // [GET] /:residentId/edit-2
     edit_2(req, res, next) {
-        var info = req.session.info || null
+        var info = req.session.info || null;
+        let householderId;
         // res.json(req.params)
         Resident.findById(req.params.residentId)
             .then((pop) => {
-                res.render('population/edit-2', {
-                    info,
-                    pop: mongooseObject(pop),
-                    householderId: req.params.householderId,
+                Resident.findOne({
+                    houseId: pop.houseId,
+                    relation: "Chủ hộ",
                 })
+                    .then((householder) => {
+                        if (householder !== null) {
+                            householderId=householder._id;
+                        }
+                        res.render('population/edit-2', {
+                            info,
+                            pop: mongooseObject(pop),
+                            householderId,
+                        })
+                    })
+                    .catch(next)
             })
             .catch(next)
     }
@@ -132,33 +146,31 @@ class PopController {
             .catch(next)
     }
 
-    // [PUT] /:residentId/:householderId/admin
+    // [PUT] /:residentId/admin
     update_2(req, res, next) {
         // res.json(req.params)
-        var link = '/pop/' + req.params.householderId + '/detail';
         // res.json(link)
         Resident.updateOne({ _id: req.params.residentId }, req.body)
-            .then(() => res.redirect(link))
+            .then(() =>{
+                // res.json(req.body.houseId)
+                let link = '/pop/' + req.body.houseId + '/detail';
+                res.redirect(link)
+            })
             .catch(next)
     }
 
-    // [GET] /pop/:id/detail
+    // [GET] /pop/:houseId/detail
     detail(req, res, next) {
         var info = req.session.info || 'none'
         // res.json(req.params)
-        Accom.findById(req.params.id)
-            .then((accom) => {
-                Resident.find({ houseId: accom.houseId })
-                    .then((resident) => {
+        Resident.find({ houseId: req.params.houseId })
+            .then((resident) => {
                         res.render('population/detail', {
                             info,
-                            accom: mongooseObject(accom),
                             resident: multipleMongooseToObject(resident),
-                            _id: req.params.id,
+                            houseId: req.params.houseId,
                         })
                     })
-                    .catch(next)
-            })
             .catch(next)
     }
 }

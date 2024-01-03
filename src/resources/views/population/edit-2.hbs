@@ -1,7 +1,7 @@
 <div class="mt-4">
-    <h3>Cập nhật dân cư</h3>
-    <a href="/pop/{{householderId}}/detail"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
-    <form action="/pop/{{pop._id}}/{{householderId}}/admin?_method=PUT" method="POST">
+    <h3>Cập nhật dân cư {{householderId}} {{pop._id }}</h3>
+    <a href="/pop/{{pop.houseId}}/detail"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
+    <form action="/pop/{{pop._id}}/admin?_method=PUT" method="POST">
         <div class="mb-3">
             <div class="row">
                 <div class="col-md-8">
@@ -90,7 +90,7 @@
         <div class="mb-3">
             <label for="relation" class="form-label">Quan hệ với chủ hộ</label>
             <select class="form-select" name="relation" id="relationSelect" aria-label="Default select example">
-                <option value="Chủ hộ" selected>Chủ hộ</option>
+                <option value="Chủ hộ">Chủ hộ</option>
                 <option value="Vợ">Vợ</option>
                 <option value="Chồng">Chồng</option>
                 <option value="Bố">Bố</option>
@@ -111,37 +111,67 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">SAVE</button>
+        <button type="submit" class="btn btn-primary" id="btn-save">Lưu</button>
     </form>
 </div>
 
-<script>
-    const gender = document.getElementById('gender');
-    const relation = document.getElementById('relationSelect');
-    const staus = document.getElementById('statusResident');
+{{!-- relation alert --}}
+<div class="modal fade" id="relation-alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CẢNH BÁO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Đã có thành viên khác làm chủ hộ!!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    for (var i = 0; i < gender.options.length; i++) {
-        var option = gender.options[i];
-        
-        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
-        if (option.value === "{{pop.gender}}") {
-            option.selected = true;
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const gender = document.getElementById('gender');
+        const relation = document.getElementById('relationSelect');
+        const staus = document.getElementById('statusResident');
+        const btnSave = document.getElementById('btn-save');
+        var relationModal = new bootstrap.Modal(document.getElementById('relation-alert'));
+
+        for (var i = 0; i < gender.options.length; i++) {
+            var option = gender.options[i];
+            
+            // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+            if (option.value === "{{pop.gender}}") {
+                option.selected = true;
+            }
         }
-    }
-    for (var i = 0; i < relation.options.length; i++) {
-        var option = relation.options[i];
-        
-        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
-        if (option.value === "{{pop.relation}}") {
-            option.selected = true;
+        for (var i = 0; i < relation.options.length; i++) {
+            var option = relation.options[i];
+            
+            // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+            if (option.value === "{{pop.relation}}") {
+                option.selected = true;
+            }
         }
-    }
-    for (var i = 0; i < staus.options.length; i++) {
-        var option = staus.options[i];
-        
-        // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
-        if (option.value === "{{pop.statusResident}}") {
-            option.selected = true;
+        for (var i = 0; i < staus.options.length; i++) {
+            var option = staus.options[i];
+            
+            // Kiểm tra điều kiện và thêm thuộc tính selected nếu điều kiện được đáp ứng
+            if (option.value === "{{pop.statusResident}}") {
+                option.selected = true;
+            }
         }
-    }
+
+        //
+        btnSave.onclick = function (e) {
+            if ("{{householderId}}" !== "{{pop._id }}" && "{{householderId}}" !== "") {
+                e.preventDefault();
+                relationModal.show();
+            }
+        }
+    })
 </script>
