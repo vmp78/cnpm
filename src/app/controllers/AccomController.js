@@ -98,51 +98,51 @@ class PopController {
 //             .catch(next)
 //     }
 // }
-update(req, res, next) {
-    Accom.updateOne({ _id: req.params.id }, req.body)
-        .then(async () => {
-            // Update Payment when Fee is updated
-            const accom = await Accom.findById(req.params.id);
-            const fee = await Fee.find();
+    update(req, res, next) {
+        Accom.updateOne({ _id: req.params.id }, req.body)
+            .then(async () => {
+                // Update Payment when Fee is updated
+                const accom = await Accom.findById(req.params.id);
+                const fee = await Fee.find();
 
-            const paymentPromises = fee.map(async (fee) => {
-                const paymentData = {
-                    houseId: accom.houseId,
-                    feeId: fee.feeId,
-                    totalPrice: fee.rate * accom.area,
-                    status: false,
-                };
+                const paymentPromises = fee.map(async (fee) => {
+                    const paymentData = {
+                        houseId: accom.houseId,
+                        feeId: fee.feeId,
+                        totalPrice: fee.rate * accom.area,
+                        status: false,
+                    };
 
-                const payment = await Payment.findOneAndUpdate(
-                    { houseId: accom.houseId, feeId: fee.feeId },
-                    paymentData,
-                    { upsert: true, new: true }
-                );
-            });
+                    const payment = await Payment.findOneAndUpdate(
+                        { houseId: accom.houseId, feeId: fee.feeId },
+                        paymentData,
+                        { upsert: true, new: true }
+                    );
+                });
 
-            await Promise.all(paymentPromises);
+                await Promise.all(paymentPromises);
 
-            res.redirect('my-accommodations');
-        })
-        .catch(next);
-}
+                res.redirect('my-accommodations');
+            })
+            .catch(next);
+    }
 
-destroy(req, res, next) {
-    Accom.findByIdAndDelete(req.params.id)
-        .then(async (accom) => {
-            // Delete Payment when Fee is deleted
-            const fee = await Fee.find();
+    destroy(req, res, next) {
+        Accom.findByIdAndDelete(req.params.id)
+            .then(async (accom) => {
+                // Delete Payment when Fee is deleted
+                const fee = await Fee.find();
 
-            const paymentPromises = fee.map(async (fee) => {
-                await Payment.findOneAndDelete({ houseId: accom.houseId, feeId: fee.feeId });
-            });
+                const paymentPromises = fee.map(async (fee) => {
+                    await Payment.findOneAndDelete({ houseId: accom.houseId, feeId: fee.feeId });
+                });
 
-            await Promise.all(paymentPromises);
+                await Promise.all(paymentPromises);
 
-            res.redirect('back');
-        })
-        .catch(next);
-}
+                res.redirect('back');
+            })
+            .catch(next);
+    }
 }
 
 module.exports = new PopController();

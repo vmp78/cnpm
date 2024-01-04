@@ -1,6 +1,6 @@
 <div class="mt-4">
     <h2>DANH SÁCH NHÂN KHẨU</h2>
-    <button type="button" class="btn btn-secondary"><a href="/accom/deleted-accom">
+    <button type="button" class="btn btn-secondary"><a href="/pop/deleted-pops">
         <i class="bi bi-trash3-fill"></i>
         Thùng rác
     </a></button>
@@ -30,10 +30,11 @@
                             {{/if}}
                         {{/each}}
                     {{/if}}
-                    <td>{{countWithFieldValue ../resident "houseId" this.houseId}}</td>
+                    <td>{{countWithFieldValue ../resident "houseId" this.houseId "deleted" false}}</td>
                     
                     <td>
                         <a href="/pop/{{this.houseId}}/detail" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> Chi tiết</a>
+                        <i class="bi bi-patch-exclamation-fill" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Chưa có chủ hộ"></i>
                     </td>
                 </tr>
             {{else}}

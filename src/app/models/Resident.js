@@ -15,6 +15,14 @@ const Resident = new Schema({
     houseId: { type: String, required: true},
     relation: {type: String, required: true},
     statusResident: {type: String, required: true},
+    deleted: {
+        type: Boolean,
+        default: false,
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+    },
 });
 
 // Resident.pre('save', function(next) {
@@ -22,5 +30,32 @@ const Resident = new Schema({
 
 //     next();
 // });
+
+Resident.statics.delete = function(popId) {
+    if (Array.isArray(popId)) {
+        const validIds = popId.map(id => mongoose.Types.ObjectId(id));
+        const updatePromises = validIds.map(id => {
+            return this.findByIdAndUpdate(id, {
+            deleted: true,
+            deletedAt: new Date(),
+            });
+        });
+  
+        return Promise.all(updatePromises);
+    } else {
+        return this.findByIdAndUpdate(popId, {
+            deleted: true,
+            deletedAt: new Date(),
+        });
+        }
+    };
+
+// define restore
+Resident.statics.restore = function (popId) {
+    return this.findByIdAndUpdate(popId, {
+        deleted: false,
+        deletedAt: null,
+    });
+};
 
 module.exports = mongoose.model('Resident', Resident);

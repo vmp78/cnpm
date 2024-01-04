@@ -81,9 +81,16 @@ class PopController {
             .catch(next)
     }
 
-    // [GET] /pop/deleted-pops
-    
+    // [DELETE] /pop/:id
     delete(req, res, next) {
+        // res.json(req.params)
+        Resident.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+
+    // [DELETE] /pop/:id/permanent
+    destroy(req, res, next) {
             Resident.findOne({ _id: req.params.id }) //
             .then((pop) => {
                 console.log(pop);
@@ -110,6 +117,26 @@ class PopController {
                     pop: mongooseObject(pop),
                 })
             })
+            .catch(next)
+    }
+
+    // [GET] /pop/deleted-pops
+    bin(req, res, next) {
+        var info = req.session.info || null
+        Resident.find({ deleted: true })
+            .then((resident) => {
+                res.render('population/deleted-pops', {
+                    info,
+                    resident: multipleMongooseToObject(resident),
+                })
+            })
+            .catch(next)
+    }
+
+    // [PATCH] /pop/:id/restore
+    restore(req, res, next) {
+        Resident.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
             .catch(next)
     }
 
@@ -162,7 +189,10 @@ class PopController {
     detail(req, res, next) {
         var info = req.session.info || 'none'
         // res.json(req.params)
-        Resident.find({ houseId: req.params.houseId })
+        Resident.find({
+            houseId: req.params.houseId,
+            deleted: false,
+        })
             .then((resident) => {
                         res.render('population/detail', {
                             info,

@@ -47,6 +47,7 @@
         </tbody>
     </table>
 </div>
+
 {{!-- confirm delete --}}
 <div class="modal fade" id="delete-pop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -84,7 +85,7 @@
 
         btnComfirmDelete.onclick = function () {
             {{!-- alert(popId) --}}
-            deleteForm.action = '/pop/' + popId + '/permanent?_method=DELETE'
+            deleteForm.action = '/pop/' + popId + '?_method=DELETE'
             deleteForm.submit()
         }
         
