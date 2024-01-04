@@ -1,5 +1,9 @@
 <div class="mt-4">
     <h2>DANH SÁCH NHÂN KHẨU</h2>
+    <form class="d-flex" role="search" action="/pop/search" method="POST">
+        <input class="form-control me-2 searchResident" name="Id" type="search" placeholder="Tìm kiếm ở đây" aria-label="Search" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Điền số căn cước công dân để   tìm kiếm">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
     <button type="button" class="btn btn-secondary"><a href="/pop/deleted-pops">
         <i class="bi bi-trash3-fill"></i>
         Thùng rác
@@ -13,7 +17,7 @@
                 <th scope="col">Số lượng nhân khẩu</th>
                 <th scope="col">[chức năng thêm?]</th>
             </tr>
-        </thead>
+        </thead>    
         <tbody class="table-group-divider">
             {{#each accom}}
                 <tr>
@@ -25,16 +29,24 @@
                         {{#each ../resident}}
                             {{#if (isEqual this.houseId ../this.houseId)}}
                                 {{#if (isEqual this.relation 'Chủ hộ')}}
-                                    <td>{{this.name}}</td>
+                                    {{#if (isEqual this.deleted false)}}
+                                        <td>{{this.name}}</td>
+                                    {{else}}
+                                        <td>Chưa có chủ</td>
+                                    {{/if}}
                                 {{/if}}
                             {{/if}}
                         {{/each}}
+                        {{!-- khi căn hộ có người những chưa ai làm chủ hộ --}}
+                        {{#if (isEqual (countWithFieldValue ../resident "relation" "Chủ hộ" "houseId" this.houseId) 0)}}
+                            <td>Chưa có chủ</td>
+                        {{/if}}
                     {{/if}}
                     <td>{{countWithFieldValue ../resident "houseId" this.houseId "deleted" false}}</td>
                     
                     <td>
                         <a href="/pop/{{this.houseId}}/detail" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> Chi tiết</a>
-                        <i class="bi bi-patch-exclamation-fill" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Chưa có chủ hộ"></i>
+                        {{!-- <i class="bi bi-patch-exclamation-fill" type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Chưa có chủ hộ"></i> --}}
                     </td>
                 </tr>
             {{else}}

@@ -17,5 +17,6 @@ router.put('/:residentId/admin', popController.update_2);
 router.get('/', popController.show);
 router.delete('/:id', popController.delete);
 router.delete('/:id/permanent', popController.destroy);
+router.post('/search', popController.search);
 
 module.exports = router;

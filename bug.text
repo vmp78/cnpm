@@ -1,12 +1,3 @@
-✓ từ đăng nhập bấm đăng nhập sẽ bị lỗi
-✓ trong trang đăng nhập vẫn đăng nhập được
-✓ trong trang quản lý căn hộ không có lựa chọn ở dropdown trên header
-✓ các dropdown trên thanh header sẽ thêm link vào url nên khi đang đúng ở trang chức năng rồi sử dụng sẽ bị lỗi
-đang làm:
-    ✓ cho trường "Id" trong model Resident sẽ được sinh tự động từ trường "name"
-    -- khi thêm 1 người mới thì sẽ thêm cả vào model Authentication tài khoản và mật khẩu chính là "Id" nêu ở bước trên => bỏ trường "Id"
--- id khác với mã số căn cước
-thêm chức năng tìm kiếm
-thêm liên kết accom và Resident
+thêm chức năng tìm kiếm => đã xong 1 nửa, còn trường hợp khi không thấy cần tìm kiếm
 thêm biểu đồ
-popover chưa hoàn thành
+yêu cầu xoá dân trước khi xoá căn hộ

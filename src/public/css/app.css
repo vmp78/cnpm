@@ -45,3 +45,7 @@ body, html {
   border-radius: 8px;
   width: 100%;
   outline: none; }
+
+.searchResident {
+  width: 500px;
+  margin: 8px 0; }

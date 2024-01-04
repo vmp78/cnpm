@@ -7,9 +7,9 @@ class PopController {
     // [GET] /pop
     show(req, res, next) {
         var info = req.session.info || null
-        Accom.find({})
+        Accom.find({ deleted: false })
             .then((accom) => {
-                Resident.find()
+                Resident.find({ deleted: false })
                     .then((resident) => {
                         // res.json(subResident)
                         res.render('population/my-populations', {
@@ -153,11 +153,11 @@ class PopController {
                 })
                     .then((householder) => {
                         if (householder !== null)
-                        householderId=householder._id
-                        res.render('population/edit-2', {
-                            info,
-                            pop: mongooseObject(pop),
-                            householderId,
+                            householderId = householder._id
+                            res.render('population/edit-2', {
+                                info,
+                                pop: mongooseObject(pop),
+                                householderId,
                         })
                     })
                     .catch(next)
@@ -187,7 +187,7 @@ class PopController {
 
     // [GET] /pop/:houseId/detail
     detail(req, res, next) {
-        var info = req.session.info || 'none'
+        var info = req.session.info || null
         // res.json(req.params)
         Resident.find({
             houseId: req.params.houseId,
@@ -200,6 +200,21 @@ class PopController {
                             houseId: req.params.houseId,
                         })
                     })
+            .catch(next)
+    }
+
+    // [GET] /pop/search
+    search(req, res, next) {
+        var info = req.session.info || null
+        // res.send(req.body.Id)
+        Resident.findOne({
+            Id: req.body.Id,
+            deleted: false,
+        })
+            .then((resident) => {
+                var link = '/pop/' + resident.houseId + "/detail";
+                res.redirect(link);
+            })
             .catch(next)
     }
 }

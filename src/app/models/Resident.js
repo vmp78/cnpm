@@ -26,7 +26,8 @@ const Resident = new Schema({
 });
 
 // Resident.pre('save', function(next) {
-//     this.Id = unidecode(this.name).toLowerCase().replace(/\s+/g, '').toLowerCase().replace(/\s+/g, '');
+//     let houseId = this.houseId;
+
 
 //     next();
 // });
