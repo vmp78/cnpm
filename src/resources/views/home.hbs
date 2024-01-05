@@ -5,16 +5,20 @@
         <p>Xin chào!!!</p>
     </div>
     <h2>Thống kê sơ bộ</h2>
-    <h3>Về dân cư</h3>
-    <p>Tổng số người: {{resident.length}}</p>
-    <h5>biểu đồ</h5>
-    <canvas id="populationChart"></canvas>
-    <h3>Về căn hộ</h3>
-    <p>Tổng số căn hộ: {{accom.length}}</p>
-    <h5>biểu đồ</h5>
     <div>
-        <canvas id="ownedAccomChart"></canvas>
-        <canvas id="parkingChart"></canvas>
+        <h3>Về dân cư</h3>
+        <p>Tổng số người: {{resident.length}}</p>
+        <div class="charts">
+            <canvas id="populationChart"></canvas>
+        </div>
+    </div>
+    <div>
+        <h3>Về căn hộ</h3>
+        <p>Tổng số căn hộ: {{accom.length}}</p>
+        <div class="charts">
+            <canvas id="ownedAccomChart"></canvas>
+            <canvas id="parkingChart"></canvas>
+        </div>
     </div>
 </body>
 </html>
@@ -51,13 +55,18 @@
                 borderWidth: 1
             }]
         },
-        {{!-- options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Thống kê dân cư theo giới tính',
+                    font: {
+                        size: 30
+                    },
+                    position: 'bottom',
                 }
             }
-        } --}}
+        }
     });
 
     // biểu đồ các căn hộ đã bán
@@ -87,13 +96,18 @@
                 borderWidth: 1
             }]
         },
-        {{!-- options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Thống kê căn hộ theo gì?',
+                    font: {
+                        size: 30
+                    },
+                    position: 'bottom',
                 }
             }
-        } --}}
+        }
     });
 
     // biểu đồ đỗ xe
@@ -123,12 +137,17 @@
                 borderWidth: 1
             }]
         },
-        {{!-- options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Thống kê căn hộ theo gì?',
+                    font: {
+                        size: 30
+                    },
+                    position: 'bottom',
                 }
             }
-        } --}}
+        }
     });
 </script>

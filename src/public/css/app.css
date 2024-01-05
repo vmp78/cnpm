@@ -51,5 +51,13 @@ body, html {
   margin: 8px 0; }
 
 #populationChart, #ownedAccomChart, #parkingChart {
-  max-width: 450px;
-  max-height: 450px; }
+  max-width: 300px;
+  max-height: 300px; }
+
+.charts {
+  display: flex;
+  flex-direction: row; }
+
+.charts canvas {
+  flex: 1;
+  height: auto; }
