@@ -116,6 +116,64 @@ app.engine(
                 
                 return count;
             },
+            countChildren: (array) => {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const ageLimit = 18; // Độ tuổi trẻ em
+              
+                let count = 0;
+              
+                array.forEach(function(item) {
+                  const birthday = new Date(item.birthday);
+                  const birthYear = birthday.getFullYear();
+                  const age = currentYear - birthYear;
+              
+                  if (age < ageLimit) {
+                    count++;
+                  }
+                });
+              
+                return count;
+            },
+            countAdults: (array) => {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const minAge = 17;
+                const maxAge = 65;
+              
+                let count = 0;
+              
+                array.forEach(function(item) {
+                  const birthday = new Date(item.birthday);
+                  const birthYear = birthday.getFullYear();
+                  const age = currentYear - birthYear;
+              
+                  if (age > minAge && age < maxAge) {
+                    count++;
+                  }
+                });
+              
+                return count;
+            },
+            countElderly: (array) => {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const minAge = 65; // Độ tuổi trẻ em
+              
+                let count = 0;
+              
+                array.forEach(function(item) {
+                  const birthday = new Date(item.birthday);
+                  const birthYear = birthday.getFullYear();
+                  const age = currentYear - birthYear;
+              
+                  if (age >= minAge) {
+                    count++;
+                  }
+                });
+              
+                return count;
+            },
             formatNumber: (number) => {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },

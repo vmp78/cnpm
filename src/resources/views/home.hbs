@@ -6,36 +6,89 @@
     </div>
     <h2>Thống kê sơ bộ</h2>
     <div>
-        <h3>Về dân cư</h3>
+        <h5>Về dân cư</h5>
         <p>Tổng số người: {{resident.length}}</p>
+        {{!-- <p>Số người dưới độ tuổi lao động: {{countChildren resident}}</p>
+        <p>Số người trong độ tuổi lao động: {{countAdults resident}}</p>
+        <p>Số người trên độ tuổi lao động: {{countElderly resident}}</p> --}}
         <div class="charts">
-            <canvas id="populationChart"></canvas>
+            <div class="chart-container">
+                <canvas id="genderChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="ageChart"></canvas>
+            </div>
         </div>
     </div>
     <div>
-        <h3>Về căn hộ</h3>
+        <h5>Về căn hộ</h5>
         <p>Tổng số căn hộ: {{accom.length}}</p>
         <div class="charts">
-            <canvas id="ownedAccomChart"></canvas>
-            <canvas id="parkingChart"></canvas>
+            <div class="chart-container">
+                <canvas id="ownedAccomChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="parkingChart"></canvas>
+            </div>
         </div>
     </div>
-</body>
 </html>
 
 <script>
-    var populationChart = document.getElementById('populationChart').getContext('2d');
+    var genderChart = document.getElementById('genderChart').getContext('2d');
+    var ageChart = document.getElementById('ageChart').getContext('2d');
     var ownedAccomChart = document.getElementById('ownedAccomChart').getContext('2d');
     var parkingChart = document.getElementById('parkingChart').getContext('2d');
 
-    // biểu đồ giới tính
-    var populationChart = new Chart(populationChart, {
+    // biểu đồ dân cư theo giới tính
+    var genderChart = new Chart(genderChart, {
         type: 'doughnut',
         data: {
             labels: ['Nam', 'Nữ', 'Khác'],
             datasets: [{
                 label: 'Number of People',
                 data: [{{countWithOneFieldValue resident 'gender' 'Nam'}}, {{countWithOneFieldValue resident 'gender' 'Nữ'}}, {{countWithOneFieldValue resident 'gender' 'Khác'}}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Thống kê dân cư theo độ tuổi',
+                    font: {
+                        size: 30
+                    },
+                    position: 'bottom',
+                }
+            }
+        }
+    });
+
+    // biểu đồ dân cư theo độ tuổi
+    var ageChart = new Chart(ageChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Trẻ em', 'Người trưởng thành', 'Người cao tuổi'],
+            datasets: [{
+                label: 'Number of People',
+                data: [{{countChildren resident}}, {{countAdults resident}}, {{countElderly resident}}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

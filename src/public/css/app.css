@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .card-properties-item {
   margin-top: 16px; }
 
@@ -50,14 +51,23 @@ body, html {
   width: 500px;
   margin: 8px 0; }
 
-#populationChart, #ownedAccomChart, #parkingChart {
-  max-width: 300px;
-  max-height: 300px; }
+#genderChart, #ageChart, #ownedAccomChart, #parkingChart {
+  max-width: 450px;
+  max-height: 450px; }
 
 .charts {
   display: flex;
   flex-direction: row; }
 
-.charts canvas {
+.chart-container {
   flex: 1;
+  margin-right: 10px;
+  /* Khoảng cách giữa các biểu đồ */ }
+
+.chart-container:last-child {
+  margin-right: 0;
+  /* Không có khoảng cách với biểu đồ cuối cùng */ }
+
+.chart-container canvas {
+  width: 100%;
   height: auto; }
