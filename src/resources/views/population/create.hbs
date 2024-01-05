@@ -122,7 +122,36 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Thêm</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Thêm</button>
     </form>
 </div>
 
+{{!-- relation alert --}}
+<div class="modal fade" id="relation-alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CẢNH BÁO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Đã có thành viên khác làm chủ hộ!!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const submitButton = document.getElementById('submitButton');
+    var relationModal = new bootstrap.Modal(document.getElementById('relation-alert'));
+
+    submitButton.onclick = function (e) {
+        if ({{hasHouseholder}}) {
+            e.preventDefault();
+            relationModal.show();
+        }
+    }
+</script>

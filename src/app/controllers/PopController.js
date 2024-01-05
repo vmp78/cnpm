@@ -28,9 +28,24 @@ class PopController {
     create(req, res, next) {
         // Lấy giá trị houseId từ tham số động trong URL
         const houseId = req.params.id;
-    
-        // Tiếp tục xử lý hoặc trả về phản hồi
-        res.render('population/create', { houseId });
+        Resident.find({
+            houseId: houseId,
+            deleted: false,
+        })
+            .then((residents) => {
+                const hasHouseholder = residents.some(resident => resident.relation === "Chủ hộ");
+                // if (residents.some(resident => resident.relation === "Chủ hộ")) {
+                //     res.send('Co roi em ơi')
+                // } else {
+                //     res.send('Deo co thang nao la chu ho')
+
+                // Tiếp tục xử lý hoặc trả về phản hồi
+                res.render('population/create', {
+                    houseId,
+                    hasHouseholder,
+                });
+            })
+            .catch(next)
     }
     
 
