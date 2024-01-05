@@ -38,11 +38,11 @@
                             {{/if}}
                         {{/each}}
                         {{!-- khi căn hộ có người những chưa ai làm chủ hộ --}}
-                        {{#if (isEqual (countWithFieldValue ../resident "relation" "Chủ hộ" "houseId" this.houseId) 0)}}
+                        {{#if (isEqual (countWithTwoFieldValue ../resident "relation" "Chủ hộ" "houseId" this.houseId) 0)}}
                             <td>Chưa có chủ</td>
                         {{/if}}
                     {{/if}}
-                    <td>{{countWithFieldValue ../resident "houseId" this.houseId "deleted" false}}</td>
+                    <td>{{countWithTwoFieldValue ../resident "houseId" this.houseId "deleted" false}}</td>
                     
                     <td>
                         <a href="/pop/{{this.houseId}}/detail" class="additionalFuntion"><i class="bi bi-arrow-bar-right"></i> Chi tiết</a>

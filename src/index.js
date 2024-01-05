@@ -94,11 +94,22 @@ app.engine(
                     return true;
                 }
             },
-            countWithFieldValue: (array, fieldName1, fieldValue1, fieldName2, fieldValue2) => {
+            countWithTwoFieldValue: (array, fieldName1, fieldValue1, fieldName2, fieldValue2) => {
                 let count = 0;
 
                 array.forEach(function(item) {
                     if (item[fieldName1] === fieldValue1 && item[fieldName2] === fieldValue2) {
+                      count++;
+                    }
+                  });
+                
+                return count;
+            },
+            countWithOneFieldValue: (array, fieldName1, fieldValue1) => {
+                let count = 0;
+
+                array.forEach(function(item) {
+                    if (item[fieldName1] === fieldValue1) {
                       count++;
                     }
                   });

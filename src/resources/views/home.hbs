@@ -2,18 +2,133 @@
 <html>
 <body>
     <div class='mt-4'>
-        <p>Xin chào khách hoàng có Id là: {{info}}</p>
+        <p>Xin chào!!!</p>
+    </div>
+    <h2>Thống kê sơ bộ</h2>
+    <h3>Về dân cư</h3>
+    <p>Tổng số người: {{resident.length}}</p>
+    <h5>biểu đồ</h5>
+    <canvas id="populationChart"></canvas>
+    <h3>Về căn hộ</h3>
+    <p>Tổng số căn hộ: {{accom.length}}</p>
+    <h5>biểu đồ</h5>
+    <div>
+        <canvas id="ownedAccomChart"></canvas>
+        <canvas id="parkingChart"></canvas>
     </div>
 </body>
 </html>
 
-{{!-- <script>
-        // Lấy tham số từ URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const logoutParam = urlParams.get('logout');
+<script>
+    var populationChart = document.getElementById('populationChart').getContext('2d');
+    var ownedAccomChart = document.getElementById('ownedAccomChart').getContext('2d');
+    var parkingChart = document.getElementById('parkingChart').getContext('2d');
 
-        // Kiểm tra nếu có tham số logout=true, thì hiển thị thông báo
-        if (logoutParam === 'true') {
-            alert('Bạn vừa đăng xuất!');
-        }
-</script> --}}
+    // biểu đồ giới tính
+    var populationChart = new Chart(populationChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Nam', 'Nữ', 'Khác'],
+            datasets: [{
+                label: 'Number of People',
+                data: [{{countWithOneFieldValue resident 'gender' 'Nam'}}, {{countWithOneFieldValue resident 'gender' 'Nữ'}}, {{countWithOneFieldValue resident 'gender' 'Khác'}}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        {{!-- options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        } --}}
+    });
+
+    // biểu đồ các căn hộ đã bán
+    var ownedAccomChart = new Chart(ownedAccomChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Đã có chủ', 'Chưa có chủ'],
+            datasets: [{
+                label: 'Number of Accom',
+                data: [{{countWithOneFieldValue accom 'owned' true}}, {{countWithOneFieldValue accom 'owned' false}}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        {{!-- options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        } --}}
+    });
+
+    // biểu đồ đỗ xe
+    var parkingChart = new Chart(parkingChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Xe máy', 'Ô tô', 'Xe đạp', 'Không gửi xe'],
+            datasets: [{
+                label: 'Number of Accom',
+                data: [{{countWithOneFieldValue accom 'parkingLot' 'Xe máy'}}, {{countWithOneFieldValue accom 'parkingLot' 'Ô tô'}}, {{countWithOneFieldValue accom 'parkingLot' 'Xe đạp'}}, {{countWithOneFieldValue accom 'parkingLot' 'Không gửi xe'}}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        {{!-- options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        } --}}
+    });
+</script>

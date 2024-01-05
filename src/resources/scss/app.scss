@@ -77,3 +77,8 @@ body, html  {
     width: 500px;
     margin: 8px 0;
 }
+
+#populationChart, #ownedAccomChart, #parkingChart {
+    max-width: 450px;
+    max-height: 450px;
+}

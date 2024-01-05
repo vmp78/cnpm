@@ -212,6 +212,9 @@ class PopController {
             deleted: false,
         })
             .then((resident) => {
+                if (resident === null) {
+                    res.redirect('back')
+                };
                 var link = '/pop/' + resident.houseId + "/detail";
                 res.redirect(link);
             })
