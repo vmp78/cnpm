@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb+srv://ttphong148:X2vSu7PnxHmruLfj@phong.gsxpxuh.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://ttphong148:Phong148@phong.gsxpxuh.mongodb.net/?retryWrites=true&w=majority';
 
 async function connect() {
     try {
@@ -11,5 +11,5 @@ async function connect() {
         console.error(error);
     }
 }
-//1
+
 module.exports = { connect };
