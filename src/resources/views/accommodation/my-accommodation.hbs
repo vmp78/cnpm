@@ -45,6 +45,8 @@
             {{/each}}
         </tbody>
     </table>
+    <a href="/accom/export"><button type="button" class="btn btn-primary" id="btn-export"><i class="bi bi-floppy-fill"></i></button></a>
+    <a href="/accom/import"><button type="button" class="btn btn-primary" id="btn-import"><i class="bi bi-upload"></i></button></a>
 </div>
 
 {{!-- confirm delete --}}
@@ -71,10 +73,12 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var modelComfirmDelete = document.getElementById('delete-accom')
-        var btnComfirmDelete = document.getElementById('btn-delete-accom')
-        var deleteForm = document.forms['delete-accom-form']
-        var accomId
+        var modelComfirmDelete = document.getElementById('delete-accom');
+        var btnComfirmDelete = document.getElementById('btn-delete-accom');
+        {{!-- var btnImport = document.getElementById('btn-import');
+        var btnExport = document.getElementById('btn-export'); --}}
+        var deleteForm = document.forms['delete-accom-form'];
+        var accomId;
 
         // xử lý nút xoá
         modelComfirmDelete.addEventListener('show.bs.modal', event => {

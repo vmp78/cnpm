@@ -18,5 +18,7 @@ router.get('/', popController.show);
 router.delete('/:id', popController.delete);
 router.delete('/:id/permanent', popController.destroy);
 router.post('/search', popController.search);
+router.get('/export', popController.export);
+router.get('/import', popController.import);
 
 module.exports = router;

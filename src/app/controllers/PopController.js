@@ -1,4 +1,5 @@
-const Authentication = require('../models/Authentication');
+// const Authentication = require('../models/Authentication');
+const exceljs = require('exceljs');
 const Resident = require('../models/Resident');
 const Accom = require('../models/Accommodation');
 const { multipleMongooseToObject, mongooseObject } = require('../../utils/mongoose');
@@ -218,7 +219,7 @@ class PopController {
             .catch(next)
     }
 
-    // [GET] /pop/search
+    // [POST] /pop/search
     search(req, res, next) {
         var info = req.session.info || null
         // res.send(req.body.Id)
@@ -234,6 +235,59 @@ class PopController {
                 res.redirect(link);
             })
             .catch(next)
+    }
+
+    // [GET] /pop/export
+    export(req, res, next) {
+        Accom.find({ deleted: false })
+        .then((accoms) => {
+            Resident.find({ deleted: false })
+            .then((residents) => {
+                // Create a new workbook
+                const workbook = new exceljs.Workbook();
+                const worksheet = workbook.addWorksheet('Residents Data')
+
+                // Add column headers
+                const columns = [
+                    { header: '#', key: 'index', width: 5 },
+                    { header: 'Mã căn hộ', key: 'houseId', width: 15 },
+                    { header: 'Tên chủ hộ', key: 'name', width: 20 },
+                    { header: 'Số lượng nhân khẩu', key: 'count', width: 15 },
+                ]
+                worksheet.columns = columns;
+
+                // Add data rows
+                accoms.forEach((accom, index) => {
+                    const houseId = accom.houseId
+                    
+
+                    const rowData = {
+                        index: index + 1,
+                        houseId: houseId,
+                        name: (accom.owned) ? residents.find(r => r.houseId === houseId && r.relation === "Chủ hộ").name : 'Chưa có chủ hộ',
+                        count: residents.filter(r => r.houseId === houseId ).length,
+                    };
+                    worksheet.addRow(rowData);
+                });
+
+                // Write the workbook to a buffer
+                return workbook.xlsx.writeBuffer();
+            })
+            .then((buffer) => {
+                // Set up response headers
+                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                res.setHeader('Content-Disposition', 'inline; filename=resident_data.xlsx');
+            
+                res.end(buffer);
+            })
+            .catch(next)
+        })
+        .catch(next)
+    }
+
+    // [GET] /pop/import
+    import(req, res, next) {
+        res.send('this is import')
     }
 }
 
