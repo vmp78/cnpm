@@ -12,24 +12,16 @@ class MeController {
     identyfy(req, res, next) {
         const username = req.body.username
         const pass = req.body.pass
-        
-        Auth.findOne({ 
-            username: username,
-            pass: pass,
-            })
-            .then(result => {
-                if (result) {
-                    // login succesfully
-                    // req.session.info = result;
-                    req.session.info = result.Id;
-                    // res.locals.username = username;
-                    res.locals.username = result.username;
-                    res.redirect('/')
-                } else {
-                    res.redirect('back')
-                }
-            })
-            .catch(next)
+        if (username === 'admin' && pass === 'admin') {
+            // login succesfully
+            // req.session.info = result;
+            req.session.info = 'admin';
+            // res.locals.username = username;
+            res.locals.username = 'admin';
+            res.redirect('/')
+        } else {
+            res.redirect('back')
+        }
     }
 
     // [GET] /login

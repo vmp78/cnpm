@@ -47,7 +47,9 @@
     </table>
     <a href="/accom/export"><button type="button" class="btn btn-primary" id="btn-export"><i class="bi bi-floppy-fill"></i></button></a>
     <button type="button" class="btn btn-primary" id="btn-import"><i class="bi bi-upload"></i></button>
-    <input type="file" id="fileImport" accept=".xlsx, .xls" style="display: none">
+    <form name="importForm" action="/accom/import" method="post" enctype="multipart/form-data">
+        <input type="file" id="fileImport" accept=".xlsx, .xls" style="display: none">
+    </form>
 </div>
 
 {{!-- confirm delete --}}
@@ -79,6 +81,7 @@
         var btnImport = document.getElementById('btn-import');
         var fileImport = document.getElementById('fileImport');
         var deleteForm = document.forms['delete-accom-form'];
+        var importForm = document.forms['importForm'];
         var accomId;
 
         // xử lý nút xoá
@@ -96,5 +99,8 @@
         btnImport.onclick = function () {
             fileImport.click();
         }
+        fileImport.addEventListener('change', function() {
+            importForm.submit();
+        });
     });
 </script>

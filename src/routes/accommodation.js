@@ -13,6 +13,6 @@ router.delete('/:id', accomController.delete);
 router.delete('/:id/permanent', accomController.destroy);
 router.get('/deleted-accom', accomController.bin);
 router.get('/export', accomController.export);
-router.get('/import', accomController.import);
+router.post('/import', accomController.import);
 
 module.exports = router;
