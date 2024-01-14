@@ -287,7 +287,41 @@ class PopController {
 
     // [GET] /pop/import
     import(req, res, next) {
-        res.send('this is import')
+        res.send('this is import page')
+        // if (!req.body || !req.body.fileData) {
+        //     return res.status(400).send('No file data was provided.');
+        //   }
+        
+        //   // Đọc dữ liệu từ chuỗi base64
+        //   const base64Data = req.body.fileData.replace(/^data:application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,/, '');
+        //   const binaryData = Buffer.from(base64Data, 'base64');
+        
+        //   try {
+        //     // Tạo workbook từ buffer
+        //     const workbook = new exceljs.Workbook();
+        //     await workbook.xlsx.load(binaryData);
+        
+        //     // Lấy dữ liệu từ worksheet
+        //     const worksheet = workbook.getWorksheet(1); // Lấy worksheet đầu tiên
+        //     const data = [];
+        
+        //     worksheet.eachRow((row, rowNumber) => {
+        //       const rowData = {};
+        //       row.eachCell((cell, colNumber) => {
+        //         rowData[`col${colNumber}`] = cell.value;
+        //       });
+        //       data.push(rowData);
+        //     });
+        
+        //     // Gọi hàm xử lý dữ liệu ở đây
+        //     handleData(data);
+        
+        //     // Trả về kết quả cho người dùng
+        //     res.status(200).send('File uploaded and data processed successfully!');
+        //   } catch (error) {
+        //     console.error(error);
+        //     res.status(500).send('Error processing the uploaded file.');
+        //   }
     }
 }
 
