@@ -29,7 +29,7 @@ class PopController {
 
     // [POST] /accom/store
     store(req, res, next) {
-        res.json(req.body)
+        // res.json(req.body)
         const accom = new Accom(req.body);
         // res.json(accom)
         accom.save()
@@ -207,8 +207,31 @@ class PopController {
 
                 // Iterate through rows and access cell values
                 worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-                    console.log(`Row ${rowNumber} = ${JSON.stringify(row.values)}`);
-                    // Process the row data as needed
+                    if (rowNumber === 1) {
+                        // Skip the first row (header row)
+                        return;
+                    }
+                    
+                    const houseId = row.getCell('A').value;
+                    const area = row.getCell('B').value;
+                    const parkingLot = row.getCell('C').value;
+                    
+                    Accom.findOne({ houseId: houseId })
+                        .then((accom) => {
+
+                            if (accom !== null) {
+                                return;
+                            }
+                            
+                            const newAccom = new Accom({
+                                houseId,
+                                area,
+                                parkingLot,
+                            })
+
+                            newAccom.save();
+                        })
+                        .catch(next)
                 });
 
                 // Send a success response

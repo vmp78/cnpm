@@ -175,6 +175,9 @@ app.engine(
                 return count;
             },
             formatNumber: (number) => {
+                if (typeof number === 'undefined' || number === null) {
+                    return '';
+                }
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
         },
