@@ -39,7 +39,7 @@ class PopController {
                 //     res.send('Co roi em ơi')
                 // } else {
                 //     res.send('Deo co thang nao la chu ho')
-
+                // }
                 // Tiếp tục xử lý hoặc trả về phản hồi
                 res.render('population/create', {
                     houseId,

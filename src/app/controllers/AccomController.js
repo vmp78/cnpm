@@ -235,7 +235,7 @@ class PopController {
                 });
 
                 // Send a success response
-                res.send('Import successful!');
+                res.redirect('back');
             })
             .catch(error => {
                 console.error('Error importing data:', error);

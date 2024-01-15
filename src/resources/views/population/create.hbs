@@ -154,7 +154,7 @@
         var relationSelect = document.getElementById("relationSelect");
         var selectedRelation = relationSelect.options[relationSelect.selectedIndex].value;
 
-        if (selectedRelation === "Chủ hộ") {
+        if (selectedRelation === "Chủ hộ" && {{hasHouseholder}}) {
             relationModal.show()
         } else {
             createForm.submit()
