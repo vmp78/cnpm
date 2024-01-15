@@ -29,6 +29,7 @@ class PopController {
 
     // [POST] /accom/store
     store(req, res, next) {
+        res.json(req.body)
         const accom = new Accom(req.body);
         // res.json(accom)
         accom.save()
@@ -189,9 +190,34 @@ class PopController {
             .catch(next)
     }
 
-    // [GET] /accom/import
+    // [POST] /accom/import
     import(req, res, next) {
-        res.send('this is import')
+        const file = req.file; // Assumption: You are using a middleware like multer to handle file uploads
+
+        if (!file) {
+            return res.status(400).send('No file uploaded.');
+        }
+
+        const workbook = new exceljs.Workbook();
+
+        workbook.xlsx.load(file.buffer)
+            .then(() => {
+                // Process the data from the workbook
+                const worksheet = workbook.getWorksheet(1);
+
+                // Iterate through rows and access cell values
+                worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                    console.log(`Row ${rowNumber} = ${JSON.stringify(row.values)}`);
+                    // Process the row data as needed
+                });
+
+                // Send a success response
+                res.send('Import successful!');
+            })
+            .catch(error => {
+                console.error('Error importing data:', error);
+                res.status(500).send('Error importing data.');
+            });
     }
 }
 
