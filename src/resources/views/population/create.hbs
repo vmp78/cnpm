@@ -2,7 +2,7 @@
     <h3>Đăng ký nhân khẩu</h3>
     <a href="/pop/{{houseId}}/detail"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
 
-    <form action="/pop/store" method="post">
+    <form id="createForm" action="/pop/store" method="post">
         {{!-- <div class="mb-3">
             <label for="description" class="form-label">Tên đăng nhập</label>
             <input type="text" class="form-control" id="username" name="username">
@@ -145,13 +145,19 @@
 </div>
 
 <script>
-    const submitButton = document.getElementById('submitButton');
+    const createForm = document.getElementById('createForm');
     var relationModal = new bootstrap.Modal(document.getElementById('relation-alert'));
 
-    submitButton.onclick = function (e) {
-        if ({{hasHouseholder}}) {
-            e.preventDefault();
-            relationModal.show();
+    createForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var relationSelect = document.getElementById("relationSelect");
+        var selectedRelation = relationSelect.options[relationSelect.selectedIndex].value;
+
+        if (selectedRelation === "Chủ hộ") {
+            relationModal.show()
+        } else {
+            createForm.submit()
         }
-    }
+    });
 </script>
