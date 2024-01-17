@@ -285,43 +285,70 @@ class PopController {
         .catch(next)
     }
 
-    // [GET] /pop/import
+    // [GET] /pop/:houseId/import
     import(req, res, next) {
-        res.send('this is import page')
-        // if (!req.body || !req.body.fileData) {
-        //     return res.status(400).send('No file data was provided.');
-        //   }
-        
-        //   // Đọc dữ liệu từ chuỗi base64
-        //   const base64Data = req.body.fileData.replace(/^data:application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,/, '');
-        //   const binaryData = Buffer.from(base64Data, 'base64');
-        
-        //   try {
-        //     // Tạo workbook từ buffer
-        //     const workbook = new exceljs.Workbook();
-        //     await workbook.xlsx.load(binaryData);
-        
-        //     // Lấy dữ liệu từ worksheet
-        //     const worksheet = workbook.getWorksheet(1); // Lấy worksheet đầu tiên
-        //     const data = [];
-        
-        //     worksheet.eachRow((row, rowNumber) => {
-        //       const rowData = {};
-        //       row.eachCell((cell, colNumber) => {
-        //         rowData[`col${colNumber}`] = cell.value;
-        //       });
-        //       data.push(rowData);
-        //     });
-        
-        //     // Gọi hàm xử lý dữ liệu ở đây
-        //     handleData(data);
-        
-        //     // Trả về kết quả cho người dùng
-        //     res.status(200).send('File uploaded and data processed successfully!');
-        //   } catch (error) {
-        //     console.error(error);
-        //     res.status(500).send('Error processing the uploaded file.');
-        //   }
+        const file = req.file; // Assumption: You are using a middleware like multer to handle file uploads
+
+        if (!file) {
+            return res.status(400).send('No file uploaded.');
+        }
+
+        const workbook = new exceljs.Workbook();
+
+        workbook.xlsx.load(file.buffer)
+            .then(() => {
+                // Process the data from the workbook
+                const worksheet = workbook.getWorksheet(1);
+
+                // Iterate through rows and access cell values
+                worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                    if (rowNumber === 1) {
+                        // Skip the first row (header row)
+                        return;
+                    }
+                    
+                    const Id = row.getCell('A').value;
+                    const name = row.getCell('B').value;
+                    const birthday = row.getCell('C').value;
+                    const gender = row.getCell('D').value;
+                    const phoneNumber = row.getCell('E').value;
+                    const email = row.getCell('F').value.text;
+                    const houseId = req.params.houseId;
+                    const relation = row.getCell('G').value;
+                    const statusResident = row.getCell('H').value;
+                    
+                    Accom.findOne({ Id: Id })
+                        .then((accom) => {
+
+                            if (accom !== null) {
+                                return;
+                            }
+                            
+                            const newPop = new Resident({
+                                Id,
+                                name,
+                                birthday,
+                                gender,
+                                phoneNumber,
+                                email,
+                                houseId,
+                                relation,
+                                statusResident,
+                            })
+                            
+                            // console.log(newPop)
+                            newPop.save();
+                        })
+                        .catch(next)
+                });
+
+                // Send a success response
+                res.redirect('back');
+            })
+            .catch(error => {
+                console.error('Error importing data:', error);
+                res.status(500).send('Error importing data.');
+            });
     }
 }
 

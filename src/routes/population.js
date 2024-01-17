@@ -1,6 +1,9 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 
+const storage = multer.memoryStorage(); // Lưu trữ file trong bộ nhớ đệm
+const upload = multer({ storage: storage });
 const popController = require('../app/controllers/PopController');
 
 router.get('/:id/create', popController.create);
@@ -19,6 +22,6 @@ router.delete('/:id', popController.delete);
 router.delete('/:id/permanent', popController.destroy);
 router.post('/search', popController.search);
 router.get('/export', popController.export);
-router.get('/import', popController.import);
+router.post('/:houseId/import', upload.single('fileImport'), popController.import);
 
 module.exports = router;

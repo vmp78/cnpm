@@ -46,6 +46,10 @@
             {{/each}}
         </tbody>
     </table>
+    <button type="button" class="btn btn-primary" id="btn-import"><i class="bi bi-upload"></i></button>
+    <form name="importForm" action="/pop/{{houseId}}/import" method="post" enctype="multipart/form-data">
+        <input type="file" id="fileImport" name="fileImport" accept=".xlsx, .xls" style="display: none">
+    </form>
 </div>
 
 {{!-- confirm delete --}}
@@ -74,6 +78,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         var modelComfirmDelete = document.getElementById('delete-pop')
         var btnComfirmDelete = document.getElementById('btn-delete-pop')
+        var btnImport = document.getElementById('btn-import');
         var deleteForm = document.forms['delete-pop-form']
         var popId
 
@@ -88,6 +93,12 @@
             deleteForm.action = '/pop/' + popId + '?_method=DELETE'
             deleteForm.submit()
         }
-        
+
+        btnImport.onclick = function () {
+            fileImport.click();
+        }
+        fileImport.addEventListener('change', function() {
+            importForm.submit();
+        });
     });
 </script>
