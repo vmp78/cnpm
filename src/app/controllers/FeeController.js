@@ -13,7 +13,7 @@ class FeeController {
                 res.render('fee/show', {
                     fee: multipleMongooseToObject(fee),
                     info,
-                })
+                }) 
             })
             .catch(next)
     }
@@ -44,7 +44,7 @@ class FeeController {
                     const paymentData = {
                         houseId: accom.houseId,
                         feeId: fee.feeId,
-                        totalPrice: fee.rate * accom.area,
+                        totalPrice: fee.rate ,
                         status: false,
                         paid: 0,
                     };
@@ -103,7 +103,7 @@ class FeeController {
                     const paymentData = {
                         houseId: accom.houseId,
                         feeId: fee.feeId,
-                        totalPrice: fee.rate * accom.area,
+                        totalPrice: fee.rate,
                     };
 
                     const payment = await Payment.findOneAndUpdate(
